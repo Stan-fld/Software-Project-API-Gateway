@@ -1,0 +1,15 @@
+{
+  "test": {
+    "PORT": 3300,
+    "MONGODB_URI": "mongodb://127.0.0.1:27017/nodejs-typescript-db",
+    "MONGODB_ATLAS_URI": "mongodb://127.0.0.1:27017/nodejs-typescript-db",
+    "JWT_SECRET": "TheSecretJWt"
+  },
+  "development": {
+    "PORT": 3300,
+    "MONGODB_URI": "mongodb://127.0.0.1:27017/nodejs-typescript-db",
+    "MONGODB_ATLAS_URI": "mongodb://127.0.0.1:27017/nodejs-typescript-db",
+    "JWT_SECRET": "TheSecretJWt",
+    "DB_NAME": "nodejs-typescript-db"
+  }
+}
