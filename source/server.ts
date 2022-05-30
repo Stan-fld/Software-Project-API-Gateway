@@ -1,5 +1,4 @@
-require("./config/config" + (process.env.NODE_ENV === 'production' ? ".js" : ".ts"));
-
+import './config/config.js';
 import express, {Express} from "express";
 import bodyParser from "body-parser";
 import methodOverride from "method-override";
@@ -8,6 +7,7 @@ import {Authentication} from "./server/authentication/authentication";
 import {UserEndpoints} from "./server/user/user";
 import {AdminUsersEndpoints} from "./server/admin/admin-user";
 import mongoose from "mongoose";
+
 import("./db/db-mongoose-setup");
 
 const env = process.env.NODE_ENV;

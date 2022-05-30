@@ -3,7 +3,7 @@ import request from 'supertest';
 import {User} from "../../db/user.model";
 import DoneCallback = jest.DoneCallback;
 import app from "../../server";
-import {roles} from "../../config/enums";
+import {roles} from "../../middleware/enums";
 
 describe('POST /user', () => {
 

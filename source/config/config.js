@@ -1,10 +1,10 @@
-import config from "./config.json";
+const config = require('./config.json');
 
 const env = process.env.NODE_ENV || "development";
 
 console.log(`**** environment: ${env} ****`);
 
-if (env === "development" || env === "test") {
+if (env === 'development' || env === 'test') {
 
     // fetch the appropriate object depending on the environment we are running.
     const envConfig = config[env];

@@ -1,7 +1,7 @@
 import {User} from '../db/user.model';
 import {authenticationFailed, mongooseErrors} from "../server/errors/errors";
 import {isTheRole} from "./utils";
-import {roles} from "../config/enums";
+import {roles} from "./enums";
 
 export function authenticateUser(req: any, res: any, next: any) {
 

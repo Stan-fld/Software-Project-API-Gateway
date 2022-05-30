@@ -1,9 +1,9 @@
 module.exports = {
     apps: [{
         name: 'Nodejs TypeScript API',
-        script: 'build/server.js',
+        script: 'dist/server.js',
         exec_mode: 'cluster',
-        instances: 2,
+        instances: 4,
         autorestart: true,
         watch: true,
         env_production: {

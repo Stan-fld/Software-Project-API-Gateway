@@ -6,7 +6,7 @@ export function cors(req: any, res: any, next: any) {
 
     if (req.method === 'OPTIONS') {
 
-        res.status(200).send();
+        res.status(200).send({msg: 'Which pill, blue or red ?'});
 
     } else {
         next();

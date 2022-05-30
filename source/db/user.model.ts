@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import {createError, mongooseErrors, objectNotFound} from "../server/errors/errors";
 import bcrypt from 'bcrypt';
 import {bodyPick} from "../middleware/utils";
-import {roles} from "../config/enums";
+import {roles} from "../middleware/enums";
 
 
 const UserSchema = new mongoose.Schema({

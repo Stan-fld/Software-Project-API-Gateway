@@ -1,7 +1,7 @@
 import {ObjectId} from "mongodb";
 import jwt from "jsonwebtoken";
 import {User} from "../db/user.model";
-import {roles} from "../config/enums";
+import {roles} from "../middleware/enums";
 
 const userOneId = new ObjectId();
 const userTwoId = new ObjectId();
