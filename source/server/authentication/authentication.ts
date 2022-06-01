@@ -1,14 +1,18 @@
 import {Express} from "express";
 import {createError, mongooseErrors} from "../errors/errors";
-import {User} from "../../db/user.model";
 import {bodyPick} from "../../middleware/utils";
+import {authenticateIpAndRole} from "../../middleware/authenticate";
+import axios from 'axios';
+import {TransactionToken} from "../../db/transaction-token.model";
 
 export class Authentication {
     static signUp(app: Express) {
 
-        app.post('/user', (req, res) => {
+        app.post('/register/:transactionCode', authenticateIpAndRole, (req: any, res) => {
 
-            const body = bodyPick(['firstName', 'lastName', 'email', 'password', 'phone', 'birthday', 'roles'], req.body.user);
+            const transactionCode = req.params.transactionCode;
+
+            const body = bodyPick(['email'], req.body.user);
             const clientInfo = bodyPick(['client', 'clientId'], req.body.clientInfo);
 
             if (clientInfo.client === undefined) {
@@ -20,17 +24,30 @@ export class Authentication {
                 return res.status(400).send(createError('NoEmailFound', 'Email address required, no address found'));
             }
 
-            body.email = body.email.toLowerCase();
+            req.body.email = body.email.toLowerCase();
 
-            const user = new User(body);
+            const transactionToken = new TransactionToken()
+            transactionToken.createTransactionToken(req.role, transactionCode).then((transactionToken: TransactionToken) => {
 
-            user.createAuthToken(clientInfo.client, clientInfo.clientId).then((data: { user: User, token: { accessToken: any, refreshToken: any } }) => {
-
-                if (data.token == null) {
+                if (!transactionToken) {
                     return res.status(400).send(createError('CouldNotCreateToken', 'Could not create token'));
                 }
 
-                res.status(201).send({data: {user: data.user, tokens: data.token}});
+                axios.post(
+                    'https://api.hinna.fr/item_public',
+                    {role: req.role, body: req.body},
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'trx-auth': transactionToken.token
+                        }
+                    }).then((axiosRes) => {
+
+                    return res.status(201).send({msg: 'ok'});
+
+                }).catch((e) => {
+                    console.log(e);
+                });
 
             }).catch((e: Error) => {
                 res.status(400).send(mongooseErrors(e));
@@ -41,13 +58,16 @@ export class Authentication {
 
     static signIn(app: Express) {
 
-        app.post('/user/login', (req, res) => {
+        app.post('/login/:transactionCode', authenticateIpAndRole, (req: any, res) => {
 
-            const body = bodyPick(['email', 'password', 'client', 'clientId'], req.body);
+            const transactionCode = req.params.transactionCode;
 
-            if (body.client === undefined) {
+            const body = bodyPick(['email', 'password'], req.body);
+            const clientInfo = bodyPick(['client', 'clientId'], req.body);
+
+            if (clientInfo.client === undefined) {
                 return res.status(400).send(createError('NoClientFound', 'Client required, no client found'));
-            } else if (body.clientId === undefined) {
+            } else if (clientInfo.clientId === undefined) {
                 return res.status(400).send(createError('NoClientIdFound', 'Client Id required, no id found'));
             }
 
@@ -57,18 +77,28 @@ export class Authentication {
                 return res.status(400).send(createError('NoPasswordFound', 'Password is required, no password found'));
             }
 
-            body.email = body.email.toLowerCase();
+            req.body.email = body.email.toLowerCase();
 
+            const transactionToken = new TransactionToken()
+            transactionToken.createTransactionToken(req.role, transactionCode).then((transactionToken: TransactionToken) => {
 
-            User.findWithEmailPass(body.email, body.password).then((user: User) => {
+                if (!transactionToken) {
+                    return res.status(400).send(createError('CouldNotCreateToken', 'Could not create token'));
+                }
 
-                return user.createAuthToken(body.client, body.clientId);
+                axios.post(
+                    'https://api-' + req.role.name + '/login',
+                    {role: req.role, body: req.body},
+                    {headers: {'Content-Type': 'application/json', 'trx-auth': transactionToken.token}}).then((res) => {
+                    console.log(res);
+                }).catch((e) => {
+                    console.log(e);
+                });
 
-            }).then((data) => {
-                res.status(200).send({data: {currentUser: data.user, tokens: data.token}});
-            }).catch((e) => {
-                res.status(401).send(mongooseErrors(e));
+            }).catch((e: Error) => {
+                res.status(400).send(mongooseErrors(e));
             });
+
         });
     }
 }

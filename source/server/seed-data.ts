@@ -1,97 +1,87 @@
 import {ObjectId} from "mongodb";
-import jwt from "jsonwebtoken";
-import {User} from "../db/user.model";
-import {roles} from "../middleware/enums";
+import {roles} from "../config/enums";
+import {Role} from "../db/role.model";
+import {Transaction} from "../db/transaction.model";
 
-const userOneId = new ObjectId();
-const userTwoId = new ObjectId();
-const userThreeId = new ObjectId();
 
-export const SeedUsers = [{
-    _id: userOneId.toHexString(),
-    firstName: 'Richard',
-    lastName: 'Potvin',
-    email: 'richard.potvin@test.fr',
-    password: 'azertyui',
-    birthday: new Date('1999-04-04'),
-    roles: [roles.admin, roles.user],
-    phone: '+33356588991',
-    tokens: [{
-        client: 'Android',
-        clientId: '123456',
-        accessToken: jwt.sign({
-            _id: userOneId.toHexString(),
-            client: 'Android',
-            clientId: '123456',
-            iat: Date.now() / 1000
-        }, process.env.JWT_SECRET, {expiresIn: '1h'}).toString(),
-        refreshToken: jwt.sign({
-            _id: userOneId.toHexString(),
-            client: 'Android',
-            clientId: '123456',
-            iat: Date.now() / 1000
-        }, process.env.JWT_SECRET, {expiresIn: '7d'}).toString()
-    }]
+const roleOneId = new ObjectId();
+const roleTwoId = new ObjectId();
+const roleThreeId = new ObjectId();
+const roleFourId = new ObjectId();
+const roleFiveId = new ObjectId();
+const roleSixId = new ObjectId();
+const roleSevenId = new ObjectId();
+
+export const SeedRoles = [{
+    _id: roleOneId.toHexString(),
+    name: roles.deliverer,
+    desc: 'Deliverer'
 }, {
-    _id: userTwoId.toHexString(),
-    firstName: 'Grégoire',
-    lastName: 'Brisette',
-    email: 'greg.brisette@test.fr',
-    password: 'azertyui',
-    birthday: new Date('1989-05-05'),
-    roles: [roles.user],
-    phone: '+33350616919',
-    tokens: [{
-        client: 'iOS',
-        clientId: '123456',
-        accessToken: jwt.sign({
-            _id: userTwoId.toHexString(),
-            client: 'iOS',
-            clientId: '123456',
-            iat: Date.now() / 1000
-        }, process.env.JWT_SECRET, {expiresIn: '1h'}).toString(),
-        refreshToken: jwt.sign({
-            _id: userTwoId.toHexString(),
-            client: 'iOS',
-            clientId: '123456',
-            iat: Date.now() / 1000
-        }, process.env.JWT_SECRET, {expiresIn: '7d'}).toString()
-    }]
+    _id: roleTwoId.toHexString(),
+    name: roles.restau,
+    desc: 'Restaurant'
 }, {
-    _id: userThreeId.toHexString(),
-    firstName: 'Alphonse',
-    lastName: 'Petit',
-    email: 'alphonse.petit@test.fr',
-    password: 'azertyui',
-    roles: [roles.user],
-    birthday: new Date('1968-06-06'),
-    phone: '+33287618832',
-    tokens: [{
-        client: 'iOS',
-        clientId: '123456',
-        accessToken: jwt.sign({
-            _id: userThreeId.toHexString(),
-            client: 'iOS',
-            clientId: '123456',
-            iat: (Date.now() / 1000) - 4000
-        }, process.env.JWT_SECRET, {expiresIn: '1h'}).toString(),
-        refreshToken: jwt.sign({
-            _id: userThreeId.toHexString(),
-            client: 'iOS',
-            clientId: '123456',
-            iat: Date.now() / 1000
-        }, process.env.JWT_SECRET, {expiresIn: '7d'}).toString()
-    }]
-}];
+    _id: roleThreeId.toHexString(),
+    name: roles.client,
+    desc: 'Client'
+}, {
+    _id: roleFourId.toHexString(),
+    name: roles.apiUser,
+    desc: 'API user'
+}, {
+    _id: roleFiveId.toHexString(),
+    name: roles.extDev,
+    desc: 'External developer'
+}, {
+    _id: roleSixId.toHexString(),
+    name: roles.commServ,
+    desc: 'Commercial service'
+}, {
+    _id: roleSevenId.toHexString(),
+    name: roles.techServ,
+    desc: 'Technical service'
+},
+]
 
-export const PopulateUsers = (done) => {
-    User.deleteMany({}).then(() => {
+export const PopulateRoles = (done) => {
+    Role.deleteMany({}).then(() => {
 
         // required for pre save middleware
         const saveMethods = [];
 
-        for (const user of SeedUsers) {
-            saveMethods.push((new User(user)).save());
+        for (const role of SeedRoles) {
+            saveMethods.push((new Role(role)).save());
+        }
+
+        return Promise.all(saveMethods);
+
+    }).then(() => done());
+}
+
+
+const transactionOneId = new ObjectId();
+const transactionTwoId = new ObjectId();
+
+export const SeedTransactions = [{
+    _id: transactionOneId.toHexString(),
+    code: 'CR',
+    desc: 'Create restaurant',
+    role: roleTwoId.toHexString(),
+}, {
+    _id: transactionTwoId.toHexString(),
+    code: 'CCL',
+    desc: 'Create client',
+    role: roleThreeId.toHexString(),
+}]
+
+export const PopulateTransactions = (done) => {
+    Transaction.deleteMany({}).then(() => {
+
+        // required for pre save middleware
+        const saveMethods = [];
+
+        for (const transaction of SeedTransactions) {
+            saveMethods.push((new Transaction(transaction)).save());
         }
 
         return Promise.all(saveMethods);

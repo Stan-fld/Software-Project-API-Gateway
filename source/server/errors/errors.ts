@@ -9,33 +9,6 @@ export function createError(name: string, message: string, code?: any) {
     return {errors: [{name, message, code}]};
 }
 
-export function authenticationFailed(message: string, path?: any) {
-
-    return createError('AuthenticationFailed', message, path);
-}
-
-export function objectNotFound(objectType: any, objectId: any) {
-
-    let errorMsg = "Object of type: ";
-
-    if (objectType != null) {
-        errorMsg += objectType;
-    } else {
-        errorMsg += '(null)';
-    }
-
-    errorMsg += " was not found for id: ";
-
-    if (objectId != null) {
-        errorMsg += objectId;
-    } else {
-        errorMsg += '(null)';
-    }
-
-
-    return createError('ObjectNotFoundError', errorMsg, null);
-}
-
 export function mongooseErrors(mongooseError: any) {
     const errors = mongooseError['errors'];
     const code = mongooseError['code'];

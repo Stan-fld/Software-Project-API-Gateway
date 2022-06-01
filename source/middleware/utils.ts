@@ -1,5 +1,5 @@
 import _ from "lodash";
-import {User} from "../db/user.model";
+import ipBlackListed from '../blacklist-ip.json'
 
 /**
  * Create once the defaults object with undefined values and add the data to it.
@@ -23,6 +23,6 @@ export function bodyPick(dataToPick: string[], data: any) {
         .value();
 }
 
-export function isTheRole(user: User, role: string): boolean {
-    return user.roles.some(r => r === role);
+export function isBlackList(ip: string): boolean {
+    return ipBlackListed.includes(ip);
 }
