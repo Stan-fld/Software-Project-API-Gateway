@@ -14,7 +14,7 @@ const transactionTokenSchema = new mongoose.Schema({
 
 export class TransactionToken extends mongoose.model('TransactionToken', transactionTokenSchema) {
 
-    createTransactionToken(role: Role, transactionCode: string) {
+    createTransactionToken(transactionCode: string) {
 
         return Transaction.findOne({code: transactionCode}).then((transaction: Transaction) => {
 
@@ -24,7 +24,7 @@ export class TransactionToken extends mongoose.model('TransactionToken', transac
             }
 
             this.token = jwt.sign({
-                roleId: role._id,
+                roleId: transaction.role,
                 transactionId: transaction._id,
                 iat: Date.now() / 1000
             }, process.env.JWT_SECRET!, {expiresIn: '2h'}).toString();
