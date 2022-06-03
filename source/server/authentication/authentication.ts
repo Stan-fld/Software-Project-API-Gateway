@@ -35,7 +35,7 @@ export class Authentication {
 
                 axios.post(
                     'https://api.hinna.fr/item_public',
-                    {role: req.role, body: req.body},
+                    {body: req.body},
                     {
                         headers: {
                             'Content-Type': 'application/json',
@@ -88,7 +88,7 @@ export class Authentication {
 
                 axios.post(
                     'https://api-' + req.role.name + '/login',
-                    {role: req.role, body: req.body},
+                    {body: req.body},
                     {headers: {'Content-Type': 'application/json', 'trx-auth': transactionToken.token}}).then((res) => {
                     console.log(res);
                 }).catch((e) => {
