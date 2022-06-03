@@ -8,7 +8,7 @@ import {TransactionToken} from "../../db/transaction-token.model";
 export class Authentication {
     static signUp(app: Express) {
 
-        app.post('/register/:transactionCode', authenticateIpAndRole, (req: any, res) => {
+        app.post('/register/:transactionCode', authenticateIp, (req: any, res) => {
 
             const transactionCode = req.params.transactionCode;
 
@@ -58,7 +58,7 @@ export class Authentication {
 
     static signIn(app: Express) {
 
-        app.post('/login/:transactionCode', authenticateIpAndRole, (req: any, res) => {
+        app.post('/login/:transactionCode', authenticateIp, (req: any, res) => {
 
             const transactionCode = req.params.transactionCode;
 
