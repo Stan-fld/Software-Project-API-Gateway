@@ -27,7 +27,7 @@ export class Authentication {
             req.body.email = body.email.toLowerCase();
 
             const transactionToken = new TransactionToken()
-            transactionToken.createTransactionToken(req.role, transactionCode).then((transactionToken: TransactionToken) => {
+            transactionToken.createTransactionToken(transactionCode).then((transactionToken: TransactionToken) => {
 
                 if (!transactionToken) {
                     return res.status(400).send(createError('CouldNotCreateToken', 'Could not create token'));
@@ -80,7 +80,7 @@ export class Authentication {
             req.body.email = body.email.toLowerCase();
 
             const transactionToken = new TransactionToken()
-            transactionToken.createTransactionToken(req.role, transactionCode).then((transactionToken: TransactionToken) => {
+            transactionToken.createTransactionToken(transactionCode).then((transactionToken: TransactionToken) => {
 
                 if (!transactionToken) {
                     return res.status(400).send(createError('CouldNotCreateToken', 'Could not create token'));
