@@ -1,14 +1,14 @@
 {
-  "name": "nodejs-ts-api",
+  "name": "software-project-main-middleware",
   "version": "1.0.0",
-  "description": "Nodejs TypeScript API",
+  "description": "Software Project Node.js API for Main Middleware",
   "main": "source/server.ts",
   "scripts": {
     "dev": "nodemon source/server.ts",
     "start": "pm2-runtime ecosystem.config.js --env production",
     "build": "rm -rf dist/ && tsc --build",
     "test": "set \"NODE_ENV=test\" && jest --testTimeout=10000 --detectOpenHandles ./source",
-    "test:watch": "npm run test -- --watch"
+    "test:watch": "npm run test --watch"
   },
   "author": "Stanislas Foillard",
   "license": "MIT",

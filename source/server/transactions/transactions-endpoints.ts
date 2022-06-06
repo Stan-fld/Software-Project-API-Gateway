@@ -1,19 +1,19 @@
 import {Express} from "express";
-import {authenticateIpAndRole} from "../../middleware/authenticate";
 import {TransactionToken} from "../../db/transaction-token.model";
 import axios from "axios";
 import {mongooseErrors} from "../errors/errors";
+import {authenticateIp} from "../../middleware/authenticate";
 
 
 export class TransactionEndpoints {
 
     static newTransaction(app: Express) {
-        app.post('/transaction/:transactionCode', authenticateIpAndRole, (req: any, res) => {
+        app.post('/transaction/:transactionCode', authenticateIp, (req: any, res) => {
 
             const transactionCode = req.params.transactionCode;
 
             const transactionToken = new TransactionToken()
-            transactionToken.createTransactionToken(req.role, transactionCode).then((transactionToken: TransactionToken) => {
+            transactionToken.createTransactionToken(transactionCode).then((transactionToken: TransactionToken) => {
 
                 axios.post(
                     'https://api-' + req.role.name + '/' + transactionCode,

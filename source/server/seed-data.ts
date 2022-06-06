@@ -61,17 +61,23 @@ export const PopulateRoles = (done) => {
 
 const transactionOneId = new ObjectId();
 const transactionTwoId = new ObjectId();
+const transactionThreeId = new ObjectId();
 
 export const SeedTransactions = [{
     _id: transactionOneId.toHexString(),
     code: 'CR',
     desc: 'Create restaurant',
-    role: roleTwoId.toHexString(),
+    role: roleTwoId.toHexString()
 }, {
     _id: transactionTwoId.toHexString(),
     code: 'CCL',
     desc: 'Create client',
-    role: roleThreeId.toHexString(),
+    role: roleThreeId.toHexString()
+}, {
+    _id: transactionThreeId.toHexString(),
+    code: 'LR',
+    desc: 'Login restaurant',
+    role: roleTwoId.toHexString()
 }]
 
 export const PopulateTransactions = (done) => {

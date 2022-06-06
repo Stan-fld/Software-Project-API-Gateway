@@ -1,6 +1,5 @@
 import {isBlackList} from "./utils";
-import {createError, mongooseErrors} from "../server/errors/errors";
-import {Role} from "../db/role.model";
+import {createError} from "../server/errors/errors";
 
 
 export function authenticateIp(req: any, res: any, next: any) {
@@ -10,4 +9,6 @@ export function authenticateIp(req: any, res: any, next: any) {
     if (isBlackList(clientIp)) {
         return Promise.reject(createError('IpBlackListed', 'The supplied ip is blackListed'));
     }
+
+    next();
 }
