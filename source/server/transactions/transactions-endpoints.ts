@@ -1,8 +1,6 @@
 import {Express} from "express";
-import {TransactionToken} from "../../db/transaction-token.model";
-import axios from "axios";
-import {mongooseErrors} from "../errors/errors";
 import {authenticateIp} from "../../middleware/authenticate";
+import {TransactionService} from "../../service/transaction-service";
 
 
 export class TransactionEndpoints {
@@ -12,22 +10,11 @@ export class TransactionEndpoints {
 
             const transactionCode = req.params.transactionCode;
 
-            const transactionToken = new TransactionToken()
-            transactionToken.createTransactionToken(transactionCode).then((transactionToken: TransactionToken) => {
-
-                axios.post(
-                    'https://api-' + req.role.name + '/' + transactionCode,
-                    {req},
-                    {headers: {'Content-Type': 'application/json', 'trx-auth': transactionToken.token}}).then((res) => {
-                    console.log(res);
-                }).catch((e) => {
-                    console.log(e);
-                });
-
-            }).catch((e: Error) => {
-                res.status(400).send(mongooseErrors(e));
-            });
+            new TransactionService(transactionCode, req.header('x-auth'), req.body).redirectTransaction().then((data) => {
+                return res.status(201).send(data);
+            }).catch((e) => {
+                return res.send(e);
+            })
         })
-
     }
 }

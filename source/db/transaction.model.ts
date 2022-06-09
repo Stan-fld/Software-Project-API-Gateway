@@ -1,22 +1,47 @@
-import mongoose from "mongoose";
+import sequelize from "./setup/db-mysql-setup";
+import {DataTypes, Model} from "sequelize";
+import Role from "./role.model";
 
+const config = {
+    tableName: 'Transaction',
+    timestamps: true,
+    sequelize: sequelize,
+};
 
-const TransactionSchema = new mongoose.Schema({
+class Transaction extends Model {
+    id!: string;
+    code!: string;
+    reqCat!: string;
+    desc!: string;
+    role!: string;
+}
+
+Transaction.init({
+    // Model attributes are defined here
+    id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: false,
+        primaryKey: true
+    },
     code: {
-        type: String,
-        required: true,
-        minLength: 1
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    reqCat: {
+        type: DataTypes.ENUM('GET', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTION'),
+        allowNull: false,
     },
     desc: {
-        type: String,
-        required: true
+        type: DataTypes.STRING,
+        allowNull: false
     },
     role: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Role',
-        required: true
-    },
-})
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: false,
+        references: {model: Role, key: 'id'}
+    }
+}, config);
 
-export class Transaction extends mongoose.model('Transaction', TransactionSchema) {
-}
+export default Transaction;

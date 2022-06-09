@@ -35,7 +35,7 @@ describe('POST /register/:transactionCode', () => {
                 expect(res.body.data.restaurant.lastName).toBe(restaurant.lastName);
                 expect(res.body.data.restaurant.email).toBe(restaurant.email.toLowerCase());
                 expect(res.body.data.restaurant.password).not.toBe(restaurant.password);
-                expect(res.body.data.restaurant.role).toBe(SeedRoles[1]._id);
+                expect(res.body.data.restaurant.role).toBe(SeedRoles[1].id);
 
             })
             .end((err) => {

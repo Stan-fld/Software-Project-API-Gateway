@@ -1,18 +1,35 @@
-import mongoose from "mongoose";
+import sequelize from "./setup/db-mysql-setup";
+import {DataTypes, Model} from "sequelize";
 
+const config = {
+    tableName: 'Role',
+    timestamps: true,
+    sequelize: sequelize,
+};
 
-const RoleSchema = new mongoose.Schema({
+class Role extends Model {
+    id!: string;
+    name!: string;
+    desc!: string;
+}
+
+Role.init({
+    // Model attributes are defined here
+    id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: false,
+        primaryKey: true
+    },
     name: {
-        type: String,
-        required: true,
-        minLength: 2
+        type: DataTypes.STRING,
+        allowNull: false
     },
     desc: {
-        type: String,
-        required: true,
-        minLength: 2
+        type: DataTypes.STRING,
+        allowNull: false
     }
-})
+}, config);
 
-export class Role extends mongoose.model('Role', RoleSchema) {
-}
+
+export default Role;

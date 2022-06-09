@@ -1,28 +1,30 @@
 import jwt from "jsonwebtoken";
-import mongoose from "mongoose";
-import {Transaction} from "./transaction.model";
 import {createError, mongooseErrors} from "../server/errors/errors";
-import {Role} from "./role.model";
+import sequelize from "./setup/db-mysql-setup";
+import {DataTypes, Model} from "sequelize";
+import Role from "./role.model";
+import Transaction from "./transaction.model";
 
 
-const transactionTokenSchema = new mongoose.Schema({
-    token: {
-        type: String,
-        required: true
-    }
-}, {timestamps: true})
+const config = {
+    tableName: 'TransactionToken',
+    timestamps: true,
+    sequelize: sequelize,
+};
 
-export class TransactionToken extends mongoose.model('TransactionToken', transactionTokenSchema) {
+class TransactionToken extends Model {
+    id!: string;
+    token!: string;
 
     createTransactionToken(transactionCode: string) {
 
-        return Transaction.findOne({code: transactionCode}).then((transaction: Transaction) => {
+        return Transaction.findOne({where: {code: transactionCode}}).then((transaction: Transaction) => {
 
             if (!transaction) {
                 return Promise.reject(createError('CouldNotFindTransaction', 'Could not find transaction for given code'));
             }
 
-            return Role.findOne({_id: transaction.role}).then((role: Role) => {
+            return Role.findOne({where: {_id: transaction.role}}).then((role: Role) => {
 
                 if (!role) {
                     return Promise.reject(createError('CouldNotFindRole', 'Could not find transaction role for given code'));
@@ -30,12 +32,20 @@ export class TransactionToken extends mongoose.model('TransactionToken', transac
 
                 this.token = jwt.sign({
                     roleId: transaction.role,
-                    transactionId: transaction._id,
+                    transactionId: transaction.id,
                     iat: Date.now() / 1000
                 }, process.env.JWT_SECRET!, {expiresIn: '2h'}).toString();
 
                 return this.save().then((transactionToken: TransactionToken) => {
-                    return {transactionToken, role};
+
+                    if (!transactionToken) {
+                        return Promise.reject(createError('CouldNotCreateToken', 'Could not create token'));
+                    }
+
+                    return {transaction, transactionToken, role};
+
+                }).catch((e) => {
+                    return Promise.reject(mongooseErrors(e))
                 });
             })
 
@@ -45,4 +55,20 @@ export class TransactionToken extends mongoose.model('TransactionToken', transac
 
     }
 }
+
+TransactionToken.init({
+    // Model attributes are defined here
+    id: {
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4,
+        allowNull: false,
+        primaryKey: true
+    },
+    token: {
+        type: DataTypes.STRING,
+        allowNull: false
+    }
+}, config);
+
+export default TransactionToken;
 

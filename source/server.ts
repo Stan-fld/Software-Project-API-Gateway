@@ -6,7 +6,7 @@ import {cors} from "./middleware/cors";
 import mongoose from "mongoose";
 import sequelize from './db/setup/db-mysql-setup';
 import {TransactionEndpoints} from "./server/transactions/transactions-endpoints";
-import {Authentication} from "./server/authentication/authentication";
+import {AuthenticationEndpoints} from "./server/authentication/authentication-endpoints";
 
 import("./db/setup/db-mongoose-setup");
 import ("./db/setup/db-mysql-setup");
@@ -18,8 +18,8 @@ app.use(cors);
 app.use(bodyParser.json());
 app.use(methodOverride('X-HTTP-Method-Override'));
 
-Authentication.signUp(app);
-Authentication.signIn(app);
+AuthenticationEndpoints.signUp(app);
+AuthenticationEndpoints.signIn(app);
 
 TransactionEndpoints.newTransaction(app);
 
