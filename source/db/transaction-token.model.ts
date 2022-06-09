@@ -7,7 +7,7 @@ import Transaction from "./transaction.model";
 
 
 const config = {
-    tableName: 'TransactionToken',
+    tableName: 'TransactionTokens',
     timestamps: true,
     sequelize: sequelize,
 };

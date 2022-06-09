@@ -3,7 +3,7 @@ import {DataTypes, Model} from "sequelize";
 import Role from "./role.model";
 
 const config = {
-    tableName: 'Transaction',
+    tableName: 'Transactions',
     timestamps: true,
     sequelize: sequelize,
 };

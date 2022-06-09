@@ -2,7 +2,7 @@ import sequelize from "./setup/db-mysql-setup";
 import {DataTypes, Model} from "sequelize";
 
 const config = {
-    tableName: 'Role',
+    tableName: 'Roles',
     timestamps: true,
     sequelize: sequelize,
 };
