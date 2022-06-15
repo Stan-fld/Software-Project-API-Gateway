@@ -1,15 +1,22 @@
 {
   "test": {
     "PORT": 3300,
-    "MONGODB_URI": "mongodb://127.0.0.1:27017/nodejs-typescript-db",
-    "MONGODB_ATLAS_URI": "mongodb://127.0.0.1:27017/nodejs-typescript-db",
+    "MONGODB_URI": "mongodb://127.0.0.1:27017/ceseat_db",
+    "MYSQL_URI": "mysql-projetcesi.alwaysdata.net",
+    "MYSQL_DB_NAME": "projetcesi_authentication_db",
+    "MYSQL_DB_USER": "271246",
+    "MYSQL_DB_PASS": "azertyuio12345678",
     "JWT_SECRET": "TheSecretJWt"
   },
   "development": {
     "PORT": 3300,
-    "MONGODB_URI": "mongodb://127.0.0.1:27017/nodejs-typescript-db",
-    "MONGODB_ATLAS_URI": "mongodb://127.0.0.1:27017/nodejs-typescript-db",
-    "JWT_SECRET": "TheSecretJWt",
-    "DB_NAME": "nodejs-typescript-db"
+    "MONGODB_ATLAS_URI": "mongodb+srv://CesiSoftwareProject:VX4HGy7MYgJe7I3Cclustersoftwareproject.vqdf5.mongodb.net/ceseat_db",
+    "MONGODB_URI": "mongodb://127.0.0.1:27017/ceseat_db",
+    "MONGODB_DB_NAME": "ceseat_db",
+    "MYSQL_URI": "mysql-projetcesi.alwaysdata.net",
+    "MYSQL_DB_NAME": "projetcesi_authentication_db",
+    "MYSQL_DB_USER": "271246",
+    "MYSQL_DB_PASS": "azertyuio12345678",
+    "JWT_SECRET": "TheSecretJWt"
   }
 }

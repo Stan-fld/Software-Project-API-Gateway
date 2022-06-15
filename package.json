@@ -1,14 +1,14 @@
 {
-  "name": "nodejs-ts-api",
+  "name": "software-project-main-middleware",
   "version": "1.0.0",
-  "description": "Nodejs TypeScript API",
+  "description": "Software Project Node.js API for Main Middleware",
   "main": "source/server.ts",
   "scripts": {
     "dev": "nodemon source/server.ts",
     "start": "pm2-runtime ecosystem.config.js --env production",
     "build": "rm -rf dist/ && tsc --build",
     "test": "set \"NODE_ENV=test\" && jest --testTimeout=10000 --detectOpenHandles ./source",
-    "test:watch": "npm run test -- --watch"
+    "test:watch": "npm run test --watch"
   },
   "author": "Stanislas Foillard",
   "license": "MIT",
@@ -32,9 +32,13 @@
     "mongodb": "^4.2.2",
     "mongoose": "^6.1.2",
     "morgan": "^1.10.0",
+    "mysql2": "^2.3.3",
     "nodemon": "^2.0.15",
     "pm2": "^5.1.2",
+    "sequelize": "^6.20.1",
+    "sequelize-cli": "^6.4.1",
     "ts-node": "^10.4.0",
+    "uuidv4": "^6.2.13",
     "validator": "^13.7.0"
   },
   "devDependencies": {
@@ -42,7 +46,8 @@
     "@types/supertest": "^2.0.11",
     "jest": "^27.4.5",
     "supertest": "^6.1.6",
-    "ts-jest": "^27.1.2"
+    "ts-jest": "^27.1.2",
+    "typescript": "^4.7.3"
   },
   "jest": {
     "preset": "ts-jest",
