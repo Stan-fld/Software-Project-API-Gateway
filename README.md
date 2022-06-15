@@ -1,2 +1,2 @@
-# Iot-API-Project
-Iot Project Node.js TypeScript API
+# Software-Project-API-Gateway
+Software Project Node.js TypeScript API Gateway
