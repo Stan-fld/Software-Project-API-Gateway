@@ -1,6 +1,6 @@
 import {Express, Response} from "express";
-import {AuthenticationController} from "../../controller/authentication.controller";
-import {authenticateIp} from "../../middleware/authenticate";
+import {AuthenticationController} from "../../controllers/authentication.controller";
+import {authenticateIp} from "../../../middleware/authenticate";
 
 export class AuthenticationEndpoints {
     static signUp(app: Express) {

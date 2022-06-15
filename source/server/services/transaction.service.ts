@@ -1,8 +1,8 @@
 import {HttpService} from "./http.service";
-import {TransactionToken} from "../interface/transaction-token.interface";
-import {Transaction} from "../interface/transaction.interface";
-import {reqCat} from "../config/enums";
-import {createError} from "../server/errors/errors";
+import {TransactionToken} from "../models/transaction-token.model";
+import {Transaction} from "../models/transaction.model";
+import {reqCat} from "../../config/enums";
+import {createError} from "../errors/errors";
 
 
 export class TransactionService extends HttpService {

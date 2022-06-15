@@ -1,5 +1,5 @@
 import {HttpService} from "./http.service";
-import {User} from "../interface/user.interface";
+import {User} from "../models/user.model";
 
 export class AuthenticationService extends HttpService {
 

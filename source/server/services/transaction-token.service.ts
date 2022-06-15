@@ -1,6 +1,6 @@
 import {HttpService} from "./http.service";
-import {TransactionToken} from "../interface/transaction-token.interface";
-import {Transaction} from "../interface/transaction.interface";
+import {TransactionToken} from "../models/transaction-token.model";
+import {Transaction} from "../models/transaction.model";
 
 export class TransactionTokenService extends HttpService {
 

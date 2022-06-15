@@ -3,8 +3,8 @@ import express, {Express} from "express";
 import bodyParser from "body-parser";
 import methodOverride from "method-override";
 import {cors} from "./middleware/cors";
-import {AuthenticationEndpoints} from "./server/authentication/authentication-endpoints";
-import {TransactionEndpoints} from "./server/transactions/transactions-endpoints";
+import {AuthenticationEndpoints} from "./server/endpoints/authentication/authentication-endpoints";
+import {TransactionEndpoints} from "./server/endpoints/transactions/transactions-endpoints";
 
 import('./db/setup/db-mongoose-setup');
 import mongoose from "mongoose";
