@@ -1,4 +1,4 @@
-import {ObjectId} from "mongodb";
+/*import {ObjectId} from "mongodb";
 import request from 'supertest';
 import app from "../../server";
 import {PopulateRoles, PopulateTransactions, SeedRoles} from "../seed-data";
@@ -101,3 +101,5 @@ describe('POST /login/:transactionCode', () => {
             });
     });
 });
+
+ */

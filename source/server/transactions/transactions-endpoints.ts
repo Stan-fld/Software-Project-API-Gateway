@@ -1,20 +1,18 @@
 import {Express} from "express";
 import {authenticateIp} from "../../middleware/authenticate";
-import {TransactionService} from "../../service/transaction-service";
+import {TransactionController} from "../../controller/transaction.controller";
 
 
 export class TransactionEndpoints {
 
-    static newTransaction(app: Express) {
-        app.post('/transaction/:transactionCode', authenticateIp, (req: any, res) => {
-
+    static transaction(app: Express) {
+        app.post('/transaction/:transactionCode', authenticateIp, async (req: any, res) => {
             const transactionCode = req.params.transactionCode;
 
-            new TransactionService(transactionCode, req.header('x-auth'), req.body).redirectTransaction().then((data) => {
-                return res.status(201).send(data);
-            }).catch((e) => {
-                return res.send(e);
-            })
-        })
+            const response = await TransactionController.redirectTransaction(transactionCode, req.header('x-auth'), req.body);
+
+            res.status(response.code).send(response.data);
+
+        });
     }
 }

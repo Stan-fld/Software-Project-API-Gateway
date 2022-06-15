@@ -3,13 +3,15 @@ import express, {Express} from "express";
 import bodyParser from "body-parser";
 import methodOverride from "method-override";
 import {cors} from "./middleware/cors";
-import mongoose from "mongoose";
-import sequelize from './db/setup/db-mysql-setup';
-import {TransactionEndpoints} from "./server/transactions/transactions-endpoints";
 import {AuthenticationEndpoints} from "./server/authentication/authentication-endpoints";
+import {TransactionEndpoints} from "./server/transactions/transactions-endpoints";
 
-import("./db/setup/db-mongoose-setup");
-import ("./db/setup/db-mysql-setup");
+import('./db/setup/db-mongoose-setup');
+import mongoose from "mongoose";
+
+import ('./db/setup/db-mysql-setup');
+import sequelize from './db/setup/db-mysql-setup';
+
 
 const env = process.env.NODE_ENV;
 const app: Express = express();
@@ -21,7 +23,7 @@ app.use(methodOverride('X-HTTP-Method-Override'));
 AuthenticationEndpoints.signUp(app);
 AuthenticationEndpoints.signIn(app);
 
-TransactionEndpoints.newTransaction(app);
+TransactionEndpoints.transaction(app);
 
 // Handling Errors and 404
 app.use(function (req, res) {
@@ -39,7 +41,7 @@ if (env !== "test") {
 } else {
     afterAll(() => {
         mongoose.disconnect();
-        sequelize.close()
+        sequelize.close();
     });
 }
 

@@ -1,34 +1,26 @@
 import {Express, Response} from "express";
+import {AuthenticationController} from "../../controller/authentication.controller";
 import {authenticateIp} from "../../middleware/authenticate";
-import {AuthenticationService} from "../../service/authentication-service";
 
 export class AuthenticationEndpoints {
     static signUp(app: Express) {
 
-        app.post('/register/:transactionCode', authenticateIp, (req: any, res: Response) => {
+        app.post('/user/register', authenticateIp, async (req: any, res: Response) => {
 
-            const transactionCode = req.params.transactionCode;
+            const response = await AuthenticationController.createUserAccount(req.body)
 
-            AuthenticationService.postWithoutAuth(transactionCode, req.body).then((data) => {
-                return res.status(201).send(data);
-            }).catch((e) => {
-                return res.status(400).send(e);
-            });
+            res.status(response.code).send(response.data);
 
         });
     }
 
     static signIn(app: Express) {
 
-        app.post('/login/:transactionCode', authenticateIp, (req: any, res) => {
+        app.post('/user/login', authenticateIp, async (req: any, res) => {
 
-            const transactionCode = req.params.transactionCode;
+            const response = await AuthenticationController.loginUser(req.body);
 
-            AuthenticationService.postWithoutAuth(transactionCode, req.body).then((data) => {
-                return res.status(200).send(data);
-            }).catch((e) => {
-                return res.status(400).send(e);
-            });
+            res.status(response.code).send(response.data);
 
         });
     }
