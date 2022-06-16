@@ -13,11 +13,14 @@ export class TransactionService extends HttpService {
 
     constructor(transaction: Transaction, transactionToken: TransactionToken, body?: any) {
         super(transactionToken.token);
-        this.url = `${transaction.service.domain} / ${transaction.code}`;
+        this.url = `${transaction.service.domain} / ${transaction.name}`;
         this.transaction = transaction;
         this.body = body || null;
     }
 
+    /**
+     * Service function redirects to the correct function based on the transaction type
+     */
     redirectionWithTransactionToken() {
         switch (this.transaction.reqCat) {
             case reqCat.get:
@@ -40,43 +43,38 @@ export class TransactionService extends HttpService {
         }
     }
 
-
+    /**
+     * Service function request with get method
+     */
     getWithTransactionToken(): Promise<any> {
         return this.http.get(this.url);
     }
 
+    /**
+     * Service function request with put method
+     */
     putWithTransactionToken(): Promise<any> {
         return this.http.put(this.url, this.body)
     }
 
+    /**
+     * Service function request with patch method
+     */
     patchWithTransactionToken(): Promise<any> {
         return this.http.patch(this.url, this.body);
     }
 
+    /**
+     * Service function request with post method
+     */
     postWithTransactionToken(): Promise<any> {
         return this.http.post(this.url, this.body);
     }
 
+    /**
+     * Service function request with delete method
+     */
     deleteWithTransactionToken(): Promise<any> {
         return this.http.delete(this.url + '/' + this.body.id);
     }
-
-    /*
-        deleteWithTransactionToken(): Promise<any> {
-            return this.http.delete(this.url + '/' + this.body.id).then((axiosRes) => {
-
-                return this.transactionToken.destroy().then(() => {
-                    return axiosRes.data;
-                });
-
-            }).catch((e) => {
-
-                return this.transactionToken.destroy().then(() => {
-                    return Promise.reject(e.response.data);
-                });
-
-            });
-        }
-     */
-
 }

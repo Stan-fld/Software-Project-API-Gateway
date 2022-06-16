@@ -1,105 +1,26 @@
-/*import {ObjectId} from "mongodb";
 import request from 'supertest';
-import app from "../../server";
-import {PopulateRoles, PopulateTransactions, SeedRoles} from "../seed-data";
+import app from "../../../server";
 
-describe('POST /register/:transactionCode', () => {
+describe('POST /user/login', () => {
 
-    beforeEach(PopulateRoles);
-    beforeEach(PopulateTransactions);
-
-    it('should create restaurant', (done) => {
-
-        const restaurant = {
-            email: 'StanIslasfoilLard@yahoO.com',
-            password: 'azertyui',
-            firstName: 'Stanislas',
-            lastName: 'Foillard'
-        }
-
-        const clientInfo = {
-            client: 'iOS',
-            clientId: new ObjectId().toHexString()
-        }
+    it('should logged user', (done) => {
 
         request(app)
-            .post('/register/CR')
-            .send({restaurant, clientInfo})
-            .expect((res) => {
-
-                if (res.error) {
-                    console.log(res.error);
-                }
-
-                expect(res.body.data.restaurant.firstName).toBe(restaurant.firstName);
-                expect(res.body.data.restaurant.lastName).toBe(restaurant.lastName);
-                expect(res.body.data.restaurant.email).toBe(restaurant.email.toLowerCase());
-                expect(res.body.data.restaurant.password).not.toBe(restaurant.password);
-                expect(res.body.data.restaurant.role).toBe(SeedRoles[1].id);
-
-            })
-            .end((err) => {
-
-                if (err) {
-                    return done(err);
-                }
-
-                done();
-            });
-    });
-});
-
-
-describe('POST /login/:transactionCode', () => {
-
-    beforeEach(PopulateRoles);
-    beforeEach(PopulateTransactions);
-
-    it('should create and logged restaurant', (done) => {
-
-        const restaurant = {
-            email: 'StanIslasfoilLard@live.fr',
-            password: 'azertyui',
-            firstName: 'Stanislas',
-            lastName: 'Foillard'
-        }
-
-        const clientInfo = {
-            client: 'iOS',
-            clientId: new ObjectId().toHexString()
-        }
-
-        request(app)
-            .post('/register/CR')
-            .send({restaurant, clientInfo})
+            .post('/user/login')
+            .send({email: 'john@example.com', password: '12345678'})
             .then((res) => {
 
                 if (res.error) {
                     console.log(res.error);
                 }
 
-                const signupAccessToken = res.body.data.tokens.accessToken;
+                expect(res.body.data.firstName).toBe('John');
+                expect(res.body.data.lastName).toBe('Doe');
+                expect(res.body.data.phone).toBe('+33606060606');
+                expect(res.body.data.role.name).toBe('client');
 
-                request(app)
-                    .post('/login/LR')
-                    .send({
-                        email: 'StanIslasfoilLard@live.fr',
-                        password: 'azertyui',
-                        client: clientInfo.client,
-                        clientId: clientInfo.clientId
-                    })
-                    .then((res) => {
 
-                        if (res.error) {
-                            console.log(res.error);
-                        }
-
-                        expect(signupAccessToken).not.toBe(res.body.data.tokens.accessToken);
-
-                        done();
-                    });
+                done();
             });
     });
 });
-
- */

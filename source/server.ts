@@ -1,4 +1,3 @@
-import './config/config.js';
 import express, {Express} from "express";
 import bodyParser from "body-parser";
 import methodOverride from "method-override";
@@ -6,14 +5,6 @@ import {cors} from "./middleware/cors";
 import {AuthenticationEndpoints} from "./server/endpoints/authentication/authentication-endpoints";
 import {TransactionEndpoints} from "./server/endpoints/transactions/transactions-endpoints";
 
-import('./db/setup/db-mongoose-setup');
-import mongoose from "mongoose";
-
-import ('./db/setup/db-mysql-setup');
-import sequelize from './db/setup/db-mysql-setup';
-
-
-const env = process.env.NODE_ENV;
 const app: Express = express();
 
 app.use(cors);
@@ -35,14 +26,8 @@ app.use(function (req, res) {
     res.status(404).send({error});
 });
 
-if (env !== "test") {
-    const PORT: any = process.env.PORT ?? 3000;
-    app.listen(PORT, () => console.log(`The server is running on port ${PORT}`));
-} else {
-    afterAll(() => {
-        mongoose.disconnect();
-        sequelize.close();
-    });
-}
+
+const PORT = 3300;
+app.listen(PORT, () => console.log(`The server is running on port ${PORT}`));
 
 export = app;

@@ -10,6 +10,12 @@ export class TransactionController {
     private static transactionToken: TransactionToken;
     private static transactionTokenService: TransactionTokenService;
 
+    /**
+     * Controller to redirect transaction request
+     * @param transactionCode
+     * @param userToken
+     * @param body
+     */
     static async redirectTransaction(transactionCode: string, userToken: string, body?: any) {
         try {
             this.transactionTokenService = new TransactionTokenService(userToken);
@@ -31,6 +37,11 @@ export class TransactionController {
         }
     }
 
+    /**
+     * Controller to execute request with transaction code
+     * @param body
+     * @private
+     */
     private static async requestWithReqCat(body?: any) {
         try {
             const response = await new TransactionService(this.transaction, this.transactionToken, body).redirectionWithTransactionToken();

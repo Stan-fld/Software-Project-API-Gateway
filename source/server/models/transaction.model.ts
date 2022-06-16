@@ -5,6 +5,7 @@ export class Transaction {
     id: string;
     code: string;
     reqCat: string;
+    name: string;
     desc: string;
     roleId: string;
     role: Role;
@@ -16,6 +17,7 @@ export class Transaction {
         transaction.id = json.id;
         transaction.code = json.code;
         transaction.reqCat = json.reqCat;
+        transaction.name = json.name;
         transaction.desc = json.desc;
         transaction.roleId = json.roleId;
         transaction.role = Role.generateModel(json.role);

@@ -9,12 +9,20 @@ export class TransactionTokenService extends HttpService {
         super(null, userToken);
     }
 
+    /**
+     * Service who request auth service API for create a new transaction token
+     * @param transactionCode
+     */
     createTransactionToken(transactionCode: string,) {
         return this.http.post<{ transaction: Transaction, transactionToken: TransactionToken }>(
             'auth/createTransactionToken',
             {transactionCode: transactionCode});
     }
 
+    /**
+     * Service who request auth service API for delete a transaction token
+     * @param transactionToken
+     */
     deleteTransactionToken(transactionToken: string) {
         return this.http(
             `auth/deleteTransactionToken/${transactionToken}`)
