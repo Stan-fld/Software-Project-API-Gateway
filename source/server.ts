@@ -5,6 +5,7 @@ import {cors} from "./middleware/cors";
 import {AuthenticationEndpoints} from "./server/endpoints/authentication/authentication-endpoints";
 import {TransactionEndpoints} from "./server/endpoints/transactions/transactions-endpoints";
 
+const env = process.env.NODE_ENV;
 const app: Express = express();
 
 app.use(cors);
@@ -26,8 +27,9 @@ app.use(function (req, res) {
     res.status(404).send({error});
 });
 
-
-const PORT = 3300;
-app.listen(PORT, () => console.log(`The server is running on port ${PORT}`));
+if (env !== "test") {
+    const PORT = 3300;
+    app.listen(PORT, () => console.log(`The server is running on port ${PORT}`));
+}
 
 export = app;

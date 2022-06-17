@@ -25,12 +25,10 @@ export class AuthenticationController {
     static async loginUser(body: { email: string, password: string }) {
         try {
             const response = await new AuthenticationService().loginUser(body.email, body.password);
-            console.log(response.data.user);
             const user = User.generateModel(response.data.user);
 
             return {data: user, code: 200};
         } catch (e) {
-            console.log(e);
             return {data: e.response.data, code: e.response.status};
         }
     }
