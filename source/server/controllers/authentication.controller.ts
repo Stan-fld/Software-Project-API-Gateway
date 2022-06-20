@@ -14,6 +14,9 @@ export class AuthenticationController {
 
             return {data: user, code: 201};
         } catch (e) {
+            if (!e.response.data || !e.response.status) {
+                return {data: 'Internal server error', code: 500};
+            }
             return {data: e.response.data, code: e.response.status};
         }
     }
@@ -29,6 +32,9 @@ export class AuthenticationController {
 
             return {data: user, code: 200};
         } catch (e) {
+            if (!e.response.data || !e.response.status) {
+                return {data: 'Internal server error', code: 500};
+            }
             return {data: e.response.data, code: e.response.status};
         }
     }
