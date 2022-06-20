@@ -33,8 +33,7 @@ export class TransactionController {
 
             return await this.requestWithReqCat(body);
         } catch (e) {
-
-            if (!e.response.data || !e.response.status) {
+            if (!e.response) {
                 return {data: 'Internal server error', code: 500};
             }
 
@@ -56,7 +55,7 @@ export class TransactionController {
         } catch (e) {
             await this.transactionTokenService.deleteTransactionToken(this.transactionToken.token);
 
-            if (!e.response.data || !e.response.status) {
+            if (!e.response) {
                 return {data: 'Internal server error', code: 500};
             }
 
