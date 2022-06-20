@@ -4,7 +4,7 @@ import {Service} from "./service.model";
 export class Transaction {
     id: string;
     code: string;
-    reqCat: string;
+    method: string;
     name: string;
     desc: string;
     role: Role;
@@ -14,7 +14,7 @@ export class Transaction {
         const transaction = new Transaction();
         transaction.id = json.id;
         transaction.code = json.code;
-        transaction.reqCat = json.reqCat;
+        transaction.method = json.method;
         transaction.name = json.name;
         transaction.desc = json.desc;
         transaction.role = Role.generateModel(json.role);

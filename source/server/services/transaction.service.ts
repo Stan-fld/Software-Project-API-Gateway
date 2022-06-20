@@ -1,7 +1,7 @@
 import {HttpService} from "./http.service";
 import {TransactionToken} from "../models/transaction-token.model";
 import {Transaction} from "../models/transaction.model";
-import {reqCat} from "../../config/enums";
+import {methods} from "../../config/enums";
 import {createError} from "../errors/errors";
 
 
@@ -22,20 +22,20 @@ export class TransactionService extends HttpService {
      * Service function redirects to the correct function based on the transaction type
      */
     redirectionWithTransactionToken() {
-        switch (this.transaction.reqCat) {
-            case reqCat.get:
+        switch (this.transaction.method) {
+            case methods.get:
                 return this.getWithTransactionToken();
 
-            case reqCat.put:
+            case methods.put:
                 return this.putWithTransactionToken();
 
-            case reqCat.patch:
+            case methods.patch:
                 return this.patchWithTransactionToken();
 
-            case reqCat.post:
+            case methods.post:
                 return this.postWithTransactionToken();
 
-            case reqCat.delete:
+            case methods.delete:
                 return this.deleteWithTransactionToken();
 
             default :
