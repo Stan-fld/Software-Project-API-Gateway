@@ -7,9 +7,7 @@ export class Transaction {
     reqCat: string;
     name: string;
     desc: string;
-    roleId: string;
     role: Role;
-    serviceId: string;
     service: Service;
 
     static generateModel(json: any): Transaction {
@@ -19,9 +17,7 @@ export class Transaction {
         transaction.reqCat = json.reqCat;
         transaction.name = json.name;
         transaction.desc = json.desc;
-        transaction.roleId = json.roleId;
         transaction.role = Role.generateModel(json.role);
-        transaction.serviceId = json.serviceId;
         transaction.service = Service.generateModel(json.service);
 
         return transaction;

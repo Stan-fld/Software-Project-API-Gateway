@@ -12,8 +12,8 @@ export abstract class HttpService {
      */
     protected constructor(transactionToken?: string, userToken?: string) {
         this.http = axios.create({
-            //baseURL:'https://',
-            baseURL:'http://localhost:8000/',
+            baseURL:'https://',
+            //baseURL:'htt://localhost:8000/',
             headers: {
                 'Content-Type': 'application/json',
                 'trx-auth': transactionToken || null,

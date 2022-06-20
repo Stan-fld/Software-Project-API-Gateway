@@ -14,9 +14,9 @@ export class TransactionTokenService extends HttpService {
      * @param transactionCode
      */
     createTransactionToken(transactionCode: string,) {
-        return this.http.post<{ transaction: Transaction, transactionToken: TransactionToken }>(
-            'auth/createTransactionToken',
-            {transactionCode: transactionCode});
+        return this.http.get<{ transaction: Transaction, transactionToken: TransactionToken }>(
+            'auth/createTransactionToken/' + transactionCode
+        );
     }
 
     /**
@@ -24,7 +24,8 @@ export class TransactionTokenService extends HttpService {
      * @param transactionToken
      */
     deleteTransactionToken(transactionToken: string) {
-        return this.http(
-            `auth/deleteTransactionToken/${transactionToken}`)
+        return this.http.delete(
+            `auth/deleteTransactionToken/${transactionToken}`
+        );
     }
 }
