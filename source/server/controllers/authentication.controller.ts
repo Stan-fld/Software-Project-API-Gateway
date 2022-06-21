@@ -1,5 +1,6 @@
 import {AuthenticationService} from "../services/authentication.service";
 import {User} from "../models/user.model";
+import logger from "../../middleware/logger";
 
 export class AuthenticationController {
 
@@ -12,11 +13,15 @@ export class AuthenticationController {
             const response = await new AuthenticationService().createUser(body);
             const user = User.generateModel(response.data.user);
 
+            logger.info('User created successfully');
             return {data: user, code: 201};
         } catch (e) {
             if (!e.response) {
+                logger.error('Axios error');
                 return {data: 'Internal server error', code: 500};
             }
+
+            logger.warn(e.response.data);
             return {data: e.response.data, code: e.response.status};
         }
     }
@@ -29,12 +34,15 @@ export class AuthenticationController {
         try {
             const response = await new AuthenticationService().loginUser(body.email, body.password);
             const user = User.generateModel(response.data.user);
+            logger.info('User created successfully');
 
             return {data: user, code: 200};
         } catch (e) {
             if (!e.response) {
+                logger.error('Axios error');
                 return {data: 'Internal server error', code: 500};
             }
+            logger.warn(e.response.data);
             return {data: e.response.data, code: e.response.status};
         }
     }

@@ -3,6 +3,7 @@ import {createError} from "../errors/errors";
 import {TransactionService} from "../services/transaction.service";
 import {Transaction} from "../models/transaction.model";
 import {TransactionToken} from "../models/transaction-token.model";
+import logger from "../../middleware/logger";
 
 export class TransactionController {
 
@@ -25,18 +26,26 @@ export class TransactionController {
             this.transactionToken = TransactionToken.generateModel(response.data.transactionToken);
 
             if (!this.transaction) {
-                return createError('CouldNotFindTransaction', 'Could not find transaction for given code', 404);
+                let error = createError('CouldNotFindTransaction', 'Could not find transaction for given code', 404)
+
+                logger.warn(error);
+                return error;
             }
             if (!this.transactionToken) {
-                return createError('CouldNotCreateTransactionToken', 'Could not create transaction token for given transaction', 404);
+                let error = createError('CouldNotCreateTransactionToken', 'Could not create transaction token for given transaction', 404);
+
+                logger.warn(error);
+                return error;
             }
 
             return await this.requestWithReqCat(body);
         } catch (e) {
             if (!e.response) {
+                logger.error('Axios error');
                 return {data: 'Internal server error', code: 500};
             }
 
+            logger.warn(e.response.data);
             return {data: e.response.data, code: e.response.status};
         }
     }
@@ -51,14 +60,17 @@ export class TransactionController {
             const response = await new TransactionService(this.transaction, this.transactionToken, body).redirectionWithTransactionToken();
             await this.transactionTokenService.deleteTransactionToken(this.transactionToken.token);
 
+            logger.info(`Transaction ${this.transaction.desc} executed successfully`);
             return {data: response.data, code: response.status};
         } catch (e) {
             await this.transactionTokenService.deleteTransactionToken(this.transactionToken.token);
 
             if (!e.response) {
+                logger.error('Axios error');
                 return {data: 'Internal server error', code: 500};
             }
 
+            logger.warn(e.response.data);
             return {data: e.response.data, code: e.response.status};
         }
     }
