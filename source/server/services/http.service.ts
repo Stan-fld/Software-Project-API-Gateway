@@ -12,7 +12,7 @@ export abstract class HttpService {
      */
     protected constructor(transactionToken?: string, userToken?: string) {
         this.http = axios.create({
-            baseURL:'htt://localhost:8080/',
+            baseURL:'http://nginx:80/',
             headers: {
                 'Content-Type': 'application/json',
                 'trx-auth': transactionToken || null,
