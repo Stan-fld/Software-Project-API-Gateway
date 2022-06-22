@@ -1,0 +1,26 @@
+version: '3'
+services:
+  gw1:
+    container_name: gw1
+    build: ../Software-Project-API-Gateway
+    ports:
+      - "4910:3300"
+  gw2:
+    container_name: gw2
+    build: ../Software-Project-API-Gateway
+    ports:
+      - "4911:3300"
+  auth1:
+    container_name: auth1
+    build: ../auth
+    ports:
+      - "4900:8000"
+  nginx:
+    container_name: nginx
+    build: .
+    ports:
+      - "8080:80"
+    depends_on:
+      - gw1
+      - gw2
+      - auth1
