@@ -1,52 +1,63 @@
--- phpMyAdmin SQL Dump
--- version 5.1.4
--- https://www.phpmyadmin.net/
---
--- Host: mysql-projetcesi.alwaysdata.net
--- Generation Time: Jun 22, 2022 at 05:15 PM
--- Server version: 10.6.7-MariaDB
--- PHP Version: 7.4.19
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT = @@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS = @@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION = @@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `projetcesi_authentication_db`
+-- Database: `authentication_db`
 --
 
 -- --------------------------------------------------------
 
 --
+-- Deleting existing tables if they exist
+--
+
+DROP TABLE IF EXISTS TransactionTokens;
+
+DROP TABLE IF EXISTS Users;
+
+DROP TABLE IF EXISTS Transactions;
+
+DROP TABLE IF EXISTS Services;
+
+DROP TABLE IF EXISTS Roles;
+
+
+--
 -- Table structure for table `Roles`
 --
 
-CREATE TABLE `Roles` (
-  `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `desc` varchar(255) NOT NULL,
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `Roles`
+(
+    `id`        char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+    `name`      varchar(255)                                       NOT NULL,
+    `desc`      varchar(255)                                       NOT NULL,
+    `createdAt` datetime                                           NOT NULL,
+    `updatedAt` datetime                                           NOT NULL
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4;
 
 --
 -- Dumping data for table `Roles`
 --
 
-INSERT INTO `Roles` (`id`, `name`, `desc`, `createdAt`, `updatedAt`) VALUES
-('14ffee91-edd3-485e-9ca8-4cf82b6f1dfb', 'techServ', 'Technical services', '2022-06-22 15:13:22', '2022-06-22 15:13:22'),
-('193d279d-f699-46f6-af26-2d1421d2ae86', 'extDev', 'External developer', '2022-06-22 15:13:22', '2022-06-22 15:13:22'),
-('76704e4c-49f7-4bbb-90f2-b9e4772a87e0', 'deliverer', 'Deliverer', '2022-06-22 15:13:22', '2022-06-22 15:13:22'),
-('879fc7e8-863f-4a46-aa6a-9bb2dacc15d0', 'client', 'Client', '2022-06-22 15:13:22', '2022-06-22 15:13:22'),
-('934e1057-c214-4556-bfab-7d3762ed2836', 'commServ', 'Commercial services', '2022-06-22 15:13:22', '2022-06-22 15:13:22'),
-('a93d4bac-fde0-4bd4-b25c-02793783e93b', 'apiUser', 'API user', '2022-06-22 15:13:22', '2022-06-22 15:13:22'),
-('bfb0c9ce-990b-47c7-8bfc-a5deea941acf', 'restau', 'Restaurant', '2022-06-22 15:13:22', '2022-06-22 15:13:22');
+INSERT INTO `Roles` (`id`, `name`, `desc`, `createdAt`, `updatedAt`)
+VALUES ('3fb72eec-3307-4a72-9f28-36b2de52a86e', 'techServ', 'Technical services', '2022-06-23 08:50:16',
+        '2022-06-23 08:50:16'),
+       ('47ed7c0d-b835-4b26-938c-794ff764313c', 'restau', 'Restaurant', '2022-06-23 08:50:16', '2022-06-23 08:50:16'),
+       ('66869ff0-f4e1-4c24-8718-fd9665ea996a', 'extDev', 'External developer', '2022-06-23 08:50:16',
+        '2022-06-23 08:50:16'),
+       ('7f1ecd88-a6af-441d-a5e0-a995fea51b3e', 'apiUser', 'API user', '2022-06-23 08:50:16', '2022-06-23 08:50:16'),
+       ('b319fc5a-0b05-4e77-8980-07693a8ba7b6', 'client', 'Client', '2022-06-23 08:50:16', '2022-06-23 08:50:16'),
+       ('ef31c95f-1b96-446e-9a8a-387dc92c1094', 'deliverer', 'Deliverer', '2022-06-23 08:50:16', '2022-06-23 08:50:16'),
+       ('f10763f0-ee18-4352-b855-63a3ca330d70', 'commServ', 'Commercial services', '2022-06-23 08:50:16',
+        '2022-06-23 08:50:16');
 
 -- --------------------------------------------------------
 
@@ -54,22 +65,24 @@ INSERT INTO `Roles` (`id`, `name`, `desc`, `createdAt`, `updatedAt`) VALUES
 -- Table structure for table `Services`
 --
 
-CREATE TABLE `Services` (
-  `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `domain` varchar(255) NOT NULL,
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `Services`
+(
+    `id`        char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+    `domain`    varchar(255)                                       NOT NULL,
+    `createdAt` datetime                                           NOT NULL,
+    `updatedAt` datetime                                           NOT NULL
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4;
 
 --
 -- Dumping data for table `Services`
 --
 
-INSERT INTO `Services` (`id`, `domain`, `createdAt`, `updatedAt`) VALUES
-('3045f50b-808e-4eee-97f6-61a40c808e57', 'orders', '2022-06-22 15:13:23', '2022-06-22 15:13:23'),
-('49affece-f2d0-4972-a215-026020f5d546', 'users', '2022-06-22 15:13:23', '2022-06-22 15:13:23'),
-('98cdf2c9-e65a-497e-b49a-6731ca53072e', 'deliverers', '2022-06-22 15:13:23', '2022-06-22 15:13:23'),
-('d0fb76c9-242a-4609-bbd1-683d65eac65b', 'restaurants', '2022-06-22 15:13:23', '2022-06-22 15:13:23');
+INSERT INTO `Services` (`id`, `domain`, `createdAt`, `updatedAt`)
+VALUES ('63f229e2-8342-4e27-b12d-565738628402', 'deliverers', '2022-06-23 08:50:16', '2022-06-23 08:50:16'),
+       ('82546b89-be40-435e-a7e2-e833dcb734f6', 'restaurants', '2022-06-23 08:50:16', '2022-06-23 08:50:16'),
+       ('ddb5539b-be12-4d0c-a7ed-1a5f670b887a', 'users', '2022-06-23 08:50:16', '2022-06-23 08:50:16'),
+       ('eed74c5c-ab5f-4bca-834f-b9abb29fcd22', 'orders', '2022-06-23 08:50:16', '2022-06-23 08:50:16');
 
 -- --------------------------------------------------------
 
@@ -77,65 +90,132 @@ INSERT INTO `Services` (`id`, `domain`, `createdAt`, `updatedAt`) VALUES
 -- Table structure for table `Transactions`
 --
 
-CREATE TABLE `Transactions` (
-  `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `code` varchar(255) NOT NULL,
-  `method` enum('GET','PUT','PATCH','POST','DELETE') NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `desc` varchar(255) NOT NULL,
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL,
-  `roleId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `serviceId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `Transactions`
+(
+    `id`        char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+    `code`      varchar(255)                                       NOT NULL,
+    `method`    enum ('GET','PUT','PATCH','POST','DELETE')         NOT NULL,
+    `name`      varchar(255)                                       NOT NULL,
+    `desc`      varchar(255)                                       NOT NULL,
+    `createdAt` datetime                                           NOT NULL,
+    `updatedAt` datetime                                           NOT NULL,
+    `roleId`    char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+    `serviceId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4;
 
 --
 -- Dumping data for table `Transactions`
 --
 
-INSERT INTO `Transactions` (`id`, `code`, `method`, `name`, `desc`, `createdAt`, `updatedAt`, `roleId`, `serviceId`) VALUES
-('0876428f-d303-4a69-bd3a-be9fe714ace1', 'GRS', 'GET', 'getRestaurants', 'Get restaurants for client', '2022-06-22 15:13:23', '2022-06-22 15:13:23', '879fc7e8-863f-4a46-aa6a-9bb2dacc15d0', 'd0fb76c9-242a-4609-bbd1-683d65eac65b'),
-('0f6e4c8c-33ea-430d-b794-f997b2d03daf', 'UU', 'PATCH', 'updateUser', 'Update user', '2022-06-22 15:13:23', '2022-06-22 15:13:23', '193d279d-f699-46f6-af26-2d1421d2ae86', '49affece-f2d0-4972-a215-026020f5d546'),
-('0fcb347a-5878-4650-a5ee-8759950317e7', 'GIS', 'GET', 'getItems', 'Get restaurant items for client', '2022-06-22 15:13:23', '2022-06-22 15:13:23', '879fc7e8-863f-4a46-aa6a-9bb2dacc15d0', 'd0fb76c9-242a-4609-bbd1-683d65eac65b'),
-('248b3ba3-fecd-4909-8a07-03fa561c3933', 'DU', 'DELETE', 'deleteUser', 'Delete user', '2022-06-22 15:13:23', '2022-06-22 15:13:23', '14ffee91-edd3-485e-9ca8-4cf82b6f1dfb', '49affece-f2d0-4972-a215-026020f5d546'),
-('2d2ec9ed-e53b-40f5-b03a-0fa8b632ae95', 'DU', 'DELETE', 'deleteUser', 'Delete user', '2022-06-22 15:13:23', '2022-06-22 15:13:23', '879fc7e8-863f-4a46-aa6a-9bb2dacc15d0', '49affece-f2d0-4972-a215-026020f5d546'),
-('2edc4f13-f96e-49ea-ad7c-a36aa33de9ed', 'UI', 'PATCH', 'updateItem', 'Update item', '2022-06-22 15:13:23', '2022-06-22 15:13:23', 'bfb0c9ce-990b-47c7-8bfc-a5deea941acf', 'd0fb76c9-242a-4609-bbd1-683d65eac65b'),
-('34ff5946-d37b-4f67-975e-4e2869c1736a', 'GIS', 'GET', 'getMyItems', 'Get items for restaurant', '2022-06-22 15:13:23', '2022-06-22 15:13:23', 'bfb0c9ce-990b-47c7-8bfc-a5deea941acf', 'd0fb76c9-242a-4609-bbd1-683d65eac65b'),
-('36a6f8a4-9158-4865-a945-4222dd49e62d', 'DU', 'DELETE', 'deleteUser', 'Delete user', '2022-06-22 15:13:23', '2022-06-22 15:13:23', '193d279d-f699-46f6-af26-2d1421d2ae86', '49affece-f2d0-4972-a215-026020f5d546'),
-('3baa4268-11a4-4ebd-8bc4-2b427fb8a45d', 'GRS', 'GET', 'getRestaurants', 'Get restaurants for technical service', '2022-06-22 15:13:23', '2022-06-22 15:13:23', '14ffee91-edd3-485e-9ca8-4cf82b6f1dfb', 'd0fb76c9-242a-4609-bbd1-683d65eac65b'),
-('433bceab-a58d-4791-91fb-9d100d54978e', 'DU', 'DELETE', 'deleteUser', 'Delete user', '2022-06-22 15:13:23', '2022-06-22 15:13:23', '76704e4c-49f7-4bbb-90f2-b9e4772a87e0', '49affece-f2d0-4972-a215-026020f5d546'),
-('44771b61-690b-40a1-aed9-a617c94a3e73', 'AO', 'PATCH', 'acceptOrder', 'Accept order for deliverer', '2022-06-22 15:13:23', '2022-06-22 15:13:23', '76704e4c-49f7-4bbb-90f2-b9e4772a87e0', '3045f50b-808e-4eee-97f6-61a40c808e57'),
-('45a1dc56-7799-4ad9-a5dc-e0f84ef0262a', 'GO', 'GET', 'getOrder', 'Get order for deliverer', '2022-06-22 15:13:23', '2022-06-22 15:13:23', '76704e4c-49f7-4bbb-90f2-b9e4772a87e0', '3045f50b-808e-4eee-97f6-61a40c808e57'),
-('4ea13d3e-f54e-44fa-b26c-7c0d2da8b656', 'UU', 'PATCH', 'updateUser', 'Update user', '2022-06-22 15:13:23', '2022-06-22 15:13:23', '14ffee91-edd3-485e-9ca8-4cf82b6f1dfb', '49affece-f2d0-4972-a215-026020f5d546'),
-('555823c3-3809-4b41-9a43-54c282b816e0', 'DR', 'DELETE', 'deleteRestaurant', 'Delete restaurant', '2022-06-22 15:13:23', '2022-06-22 15:13:23', 'bfb0c9ce-990b-47c7-8bfc-a5deea941acf', 'd0fb76c9-242a-4609-bbd1-683d65eac65b'),
-('583ee4ef-2a7e-4801-92e1-b2a6463c257f', 'CI', 'POST', 'createItem', 'Create item', '2022-06-22 15:13:23', '2022-06-22 15:13:23', 'bfb0c9ce-990b-47c7-8bfc-a5deea941acf', 'd0fb76c9-242a-4609-bbd1-683d65eac65b'),
-('589a0f89-4c56-44dd-b035-49fbc9458e38', 'GR', 'GET', 'getRestaurant', 'Get a restaurant for technical service', '2022-06-22 15:13:23', '2022-06-22 15:13:23', '14ffee91-edd3-485e-9ca8-4cf82b6f1dfb', 'd0fb76c9-242a-4609-bbd1-683d65eac65b'),
-('590a1e5f-02f1-4485-be44-8bec368641c2', 'UU', 'PATCH', 'updateUser', 'Update user', '2022-06-22 15:13:23', '2022-06-22 15:13:23', '879fc7e8-863f-4a46-aa6a-9bb2dacc15d0', '49affece-f2d0-4972-a215-026020f5d546'),
-('5b5d1583-5b65-45ae-b867-55a9fbfe07ff', 'DI', 'DELETE', 'deleteItem', 'Delete item', '2022-06-22 15:13:23', '2022-06-22 15:13:23', 'bfb0c9ce-990b-47c7-8bfc-a5deea941acf', 'd0fb76c9-242a-4609-bbd1-683d65eac65b'),
-('6423577c-2de0-4033-b5a6-7d219a088b65', 'CR', 'POST', 'createRestaurant', 'Create restaurant', '2022-06-22 15:13:23', '2022-06-22 15:13:23', '879fc7e8-863f-4a46-aa6a-9bb2dacc15d0', 'd0fb76c9-242a-4609-bbd1-683d65eac65b'),
-('66f943b0-6e5d-40b5-b9b8-b889bce976b9', 'DD', 'DELETE', 'deleteDeliverer', 'Delete deliverer', '2022-06-22 15:13:23', '2022-06-22 15:13:23', '76704e4c-49f7-4bbb-90f2-b9e4772a87e0', '98cdf2c9-e65a-497e-b49a-6731ca53072e'),
-('6defb852-21d6-4da0-84d6-7e6ec327f487', 'UU', 'PATCH', 'updateUser', 'Update user', '2022-06-22 15:13:23', '2022-06-22 15:13:23', 'a93d4bac-fde0-4bd4-b25c-02793783e93b', '49affece-f2d0-4972-a215-026020f5d546'),
-('7f9745ce-3d76-48e8-a423-3d20f506625c', 'GO', 'GET', 'getOrder', 'Get order for restaurant', '2022-06-22 15:13:23', '2022-06-22 15:13:23', 'bfb0c9ce-990b-47c7-8bfc-a5deea941acf', NULL),
-('80c35eda-d986-407b-9942-7cf597c3e4a8', 'GUS', 'GET', 'getUsers', 'Get users', '2022-06-22 15:13:23', '2022-06-22 15:13:23', '14ffee91-edd3-485e-9ca8-4cf82b6f1dfb', '49affece-f2d0-4972-a215-026020f5d546'),
-('830f0b31-ff28-4fbe-8506-9fc45e659975', 'UR', 'PATCH', 'updateRestaurant', 'Update restaurant', '2022-06-22 15:13:23', '2022-06-22 15:13:23', 'bfb0c9ce-990b-47c7-8bfc-a5deea941acf', 'd0fb76c9-242a-4609-bbd1-683d65eac65b'),
-('87525c8e-d9a7-4353-817f-437f46b74e13', 'CD', 'POST', 'createDeliverer', 'Create deliverer', '2022-06-22 15:13:23', '2022-06-22 15:13:23', '879fc7e8-863f-4a46-aa6a-9bb2dacc15d0', '98cdf2c9-e65a-497e-b49a-6731ca53072e'),
-('878662fb-2087-4109-8687-38f95f08914a', 'DU', 'DELETE', 'deleteUser', 'Delete user', '2022-06-22 15:13:23', '2022-06-22 15:13:23', 'bfb0c9ce-990b-47c7-8bfc-a5deea941acf', '49affece-f2d0-4972-a215-026020f5d546'),
-('8a5a57ce-dcf0-494e-b198-f5c4e163671e', 'GR', 'GET', 'getRestaurant', 'Get a restaurant for deliverer', '2022-06-22 15:13:23', '2022-06-22 15:13:23', '76704e4c-49f7-4bbb-90f2-b9e4772a87e0', 'd0fb76c9-242a-4609-bbd1-683d65eac65b'),
-('9fc9bfa6-62dd-40f2-a0d4-f1b631f2278d', 'DU', 'DELETE', 'deleteUser', 'Delete user', '2022-06-22 15:13:23', '2022-06-22 15:13:23', 'a93d4bac-fde0-4bd4-b25c-02793783e93b', '49affece-f2d0-4972-a215-026020f5d546'),
-('a8cc264f-7807-4667-8eaa-2e2b48691510', 'UD', 'PATCH', 'updateDeliverer', 'Update deliverer', '2022-06-22 15:13:23', '2022-06-22 15:13:23', '76704e4c-49f7-4bbb-90f2-b9e4772a87e0', '98cdf2c9-e65a-497e-b49a-6731ca53072e'),
-('b092d497-0b78-4a97-ba6f-96e3ebdc5b84', 'GO', 'GET', 'getOrder', 'Get order for client', '2022-06-22 15:13:23', '2022-06-22 15:13:23', '879fc7e8-863f-4a46-aa6a-9bb2dacc15d0', '3045f50b-808e-4eee-97f6-61a40c808e57'),
-('b4676155-9067-47f4-b956-a3a58c983d91', 'GR', 'GET', 'getRestaurant', 'Get a restaurant for client', '2022-06-22 15:13:23', '2022-06-22 15:13:23', '879fc7e8-863f-4a46-aa6a-9bb2dacc15d0', 'd0fb76c9-242a-4609-bbd1-683d65eac65b'),
-('b514ed4f-1fda-42f0-b321-57e48203248a', 'GI', 'GET', 'getItem', 'Get item for restaurant', '2022-06-22 15:13:23', '2022-06-22 15:13:23', 'bfb0c9ce-990b-47c7-8bfc-a5deea941acf', 'd0fb76c9-242a-4609-bbd1-683d65eac65b'),
-('baee2b4e-76ab-438c-964d-9213c27d8f70', 'GRS', 'GET', 'getRestaurants', 'Get restaurants for deliverer', '2022-06-22 15:13:23', '2022-06-22 15:13:23', '76704e4c-49f7-4bbb-90f2-b9e4772a87e0', 'd0fb76c9-242a-4609-bbd1-683d65eac65b'),
-('bb64af0e-6a63-4f36-ad81-a6af7a74b8ae', 'CO', 'POST', 'createOrder', 'Create order for client', '2022-06-22 15:13:23', '2022-06-22 15:13:23', '879fc7e8-863f-4a46-aa6a-9bb2dacc15d0', '3045f50b-808e-4eee-97f6-61a40c808e57'),
-('c546992e-1910-4591-a737-d57913dbf694', 'UU', 'PATCH', 'updateUser', 'Update user', '2022-06-22 15:13:23', '2022-06-22 15:13:23', '934e1057-c214-4556-bfab-7d3762ed2836', '49affece-f2d0-4972-a215-026020f5d546'),
-('ca55b7de-adc7-469f-81f9-d379d4a95e91', 'UO', 'PATCH', 'updateOrder', 'Update order for client', '2022-06-22 15:13:23', '2022-06-22 15:13:23', '879fc7e8-863f-4a46-aa6a-9bb2dacc15d0', '3045f50b-808e-4eee-97f6-61a40c808e57'),
-('cee67bb9-7e7b-457c-92a4-ba4e6090f6db', 'GIS', 'GET', 'getItems', 'Get restaurant items for commercial service', '2022-06-22 15:13:23', '2022-06-22 15:13:23', NULL, NULL),
-('cf1de369-8b7c-4a7d-bc87-6f7bc7b4a67d', 'AO', 'PATCH', 'acceptOrder', 'Accept order for restaurant', '2022-06-22 15:13:23', '2022-06-22 15:13:23', 'bfb0c9ce-990b-47c7-8bfc-a5deea941acf', '3045f50b-808e-4eee-97f6-61a40c808e57'),
-('e2735276-00e1-4d68-8d52-353b8e879651', 'UU', 'PATCH', 'updateUser', 'Update user', '2022-06-22 15:13:23', '2022-06-22 15:13:23', 'bfb0c9ce-990b-47c7-8bfc-a5deea941acf', '49affece-f2d0-4972-a215-026020f5d546'),
-('f3a6dbaf-2a56-4e86-8c85-3334a24d93e0', 'UU', 'PATCH', 'updateUser', 'Update user', '2022-06-22 15:13:23', '2022-06-22 15:13:23', '76704e4c-49f7-4bbb-90f2-b9e4772a87e0', '49affece-f2d0-4972-a215-026020f5d546'),
-('fef92724-7b13-4fdc-a45c-0f513271ac05', 'DU', 'DELETE', 'deleteUser', 'Delete user', '2022-06-22 15:13:23', '2022-06-22 15:13:23', '934e1057-c214-4556-bfab-7d3762ed2836', '49affece-f2d0-4972-a215-026020f5d546'),
-('ff4a5bfa-cf0c-400f-ae50-ddb248302dae', 'DO', 'DELETE', 'deleteOrder', 'Delete order for client', '2022-06-22 15:13:23', '2022-06-22 15:13:23', '879fc7e8-863f-4a46-aa6a-9bb2dacc15d0', '3045f50b-808e-4eee-97f6-61a40c808e57');
+INSERT INTO `Transactions` (`id`, `code`, `method`, `name`, `desc`, `createdAt`, `updatedAt`, `roleId`, `serviceId`)
+VALUES ('00646365-48f6-4792-979d-6152a042f2e7', 'DU', 'DELETE', 'deleteUser', 'Delete user', '2022-06-23 08:50:16',
+        '2022-06-23 08:50:16', '47ed7c0d-b835-4b26-938c-794ff764313c', 'ddb5539b-be12-4d0c-a7ed-1a5f670b887a'),
+       ('0123585d-0c06-4494-9bb1-d9f06f6ace36', 'UU', 'PATCH', 'updateUser', 'Update user', '2022-06-23 08:50:16',
+        '2022-06-23 08:50:16', '7f1ecd88-a6af-441d-a5e0-a995fea51b3e', 'ddb5539b-be12-4d0c-a7ed-1a5f670b887a'),
+       ('025a6a12-7e74-49d2-9dd0-541681497df9', 'DU', 'DELETE', 'deleteUser', 'Delete user', '2022-06-23 08:50:16',
+        '2022-06-23 08:50:16', '7f1ecd88-a6af-441d-a5e0-a995fea51b3e', 'ddb5539b-be12-4d0c-a7ed-1a5f670b887a'),
+       ('0e00c9c7-5caf-46fd-bf5f-c3c232e79391', 'UU', 'PATCH', 'updateUser', 'Update user', '2022-06-23 08:50:16',
+        '2022-06-23 08:50:16', '66869ff0-f4e1-4c24-8718-fd9665ea996a', 'ddb5539b-be12-4d0c-a7ed-1a5f670b887a'),
+       ('14f5e9f7-3fea-4ab4-8991-2e1296e71516', 'GUS', 'GET', 'getUsers', 'Get users', '2022-06-23 08:50:16',
+        '2022-06-23 08:50:16', '3fb72eec-3307-4a72-9f28-36b2de52a86e', 'ddb5539b-be12-4d0c-a7ed-1a5f670b887a'),
+       ('18bcff46-b2e5-4acb-8dc2-662a44cb2ddb', 'CD', 'POST', 'createDeliverer', 'Create deliverer',
+        '2022-06-23 08:50:16', '2022-06-23 08:50:16', 'b319fc5a-0b05-4e77-8980-07693a8ba7b6',
+        '63f229e2-8342-4e27-b12d-565738628402'),
+       ('1a38feae-1561-422d-a7fe-aed652762e9b', 'UD', 'PATCH', 'updateDeliverer', 'Update deliverer',
+        '2022-06-23 08:50:16', '2022-06-23 08:50:16', 'ef31c95f-1b96-446e-9a8a-387dc92c1094',
+        '63f229e2-8342-4e27-b12d-565738628402'),
+       ('21c35b4a-7c94-42ce-917c-454d52772047', 'GRS', 'GET', 'getRestaurants', 'Get restaurants for client',
+        '2022-06-23 08:50:16', '2022-06-23 08:50:16', 'b319fc5a-0b05-4e77-8980-07693a8ba7b6',
+        '82546b89-be40-435e-a7e2-e833dcb734f6'),
+       ('2524eb03-e189-4fb8-95b7-5d3c426b9c16', 'UR', 'PATCH', 'updateRestaurant', 'Update restaurant',
+        '2022-06-23 08:50:16', '2022-06-23 08:50:16', '47ed7c0d-b835-4b26-938c-794ff764313c',
+        '82546b89-be40-435e-a7e2-e833dcb734f6'),
+       ('2aece86a-e4de-4ce2-9a7a-6846b08acf92', 'GI', 'GET', 'getItem', 'Get item for restaurant',
+        '2022-06-23 08:50:16', '2022-06-23 08:50:16', '47ed7c0d-b835-4b26-938c-794ff764313c',
+        '82546b89-be40-435e-a7e2-e833dcb734f6'),
+       ('2ea2e0e3-ac8a-4f8b-ad9a-598fb709ddc0', 'CR', 'POST', 'createRestaurant', 'Create restaurant',
+        '2022-06-23 08:50:16', '2022-06-23 08:50:16', 'b319fc5a-0b05-4e77-8980-07693a8ba7b6',
+        '82546b89-be40-435e-a7e2-e833dcb734f6'),
+       ('45d22955-1448-4fac-b42a-e2101393150f', 'GIS', 'GET', 'getItems', 'Get restaurant items for client',
+        '2022-06-23 08:50:16', '2022-06-23 08:50:16', 'b319fc5a-0b05-4e77-8980-07693a8ba7b6',
+        '82546b89-be40-435e-a7e2-e833dcb734f6'),
+       ('45fad115-b6f1-473a-a192-1114419df7c5', 'AO', 'PATCH', 'acceptOrder', 'Accept order for deliverer',
+        '2022-06-23 08:50:16', '2022-06-23 08:50:16', 'ef31c95f-1b96-446e-9a8a-387dc92c1094',
+        'eed74c5c-ab5f-4bca-834f-b9abb29fcd22'),
+       ('4786afa3-3311-4566-9715-be2a86c8a79d', 'UU', 'PATCH', 'updateUser', 'Update user', '2022-06-23 08:50:16',
+        '2022-06-23 08:50:16', '3fb72eec-3307-4a72-9f28-36b2de52a86e', 'ddb5539b-be12-4d0c-a7ed-1a5f670b887a'),
+       ('5b5f78f1-df07-4d84-886a-b37d2fc603c3', 'GIS', 'GET', 'getItems', 'Get restaurant items for commercial service',
+        '2022-06-23 08:50:16', '2022-06-23 08:50:16', 'f10763f0-ee18-4352-b855-63a3ca330d70',
+        '82546b89-be40-435e-a7e2-e833dcb734f6'),
+       ('5f08195a-6d6f-4318-836e-7b5d69e80469', 'UI', 'PATCH', 'updateItem', 'Update item', '2022-06-23 08:50:16',
+        '2022-06-23 08:50:16', '47ed7c0d-b835-4b26-938c-794ff764313c', '82546b89-be40-435e-a7e2-e833dcb734f6'),
+       ('636591bd-35e4-4e67-8ab9-1d6478334fa8', 'UU', 'PATCH', 'updateUser', 'Update user', '2022-06-23 08:50:16',
+        '2022-06-23 08:50:16', 'f10763f0-ee18-4352-b855-63a3ca330d70', 'ddb5539b-be12-4d0c-a7ed-1a5f670b887a'),
+       ('64eea98d-fcba-454f-817d-749eb9ab094c', 'GO', 'GET', 'getOrder', 'Get order for restaurant',
+        '2022-06-23 08:50:16', '2022-06-23 08:50:16', '47ed7c0d-b835-4b26-938c-794ff764313c',
+        'eed74c5c-ab5f-4bca-834f-b9abb29fcd22'),
+       ('693374c5-5a0b-40d6-8ef5-e2cc9a056d8a', 'GIS', 'GET', 'getMyItems', 'Get items for restaurant',
+        '2022-06-23 08:50:16', '2022-06-23 08:50:16', '47ed7c0d-b835-4b26-938c-794ff764313c',
+        '82546b89-be40-435e-a7e2-e833dcb734f6'),
+       ('7062e44f-799d-47f1-9fd8-d788e5fc4387', 'AO', 'PATCH', 'acceptOrder', 'Accept order for restaurant',
+        '2022-06-23 08:50:16', '2022-06-23 08:50:16', '47ed7c0d-b835-4b26-938c-794ff764313c',
+        'eed74c5c-ab5f-4bca-834f-b9abb29fcd22'),
+       ('7383f83b-867c-48dd-9d58-e0a7b25a3490', 'UU', 'PATCH', 'updateUser', 'Update user', '2022-06-23 08:50:16',
+        '2022-06-23 08:50:16', 'b319fc5a-0b05-4e77-8980-07693a8ba7b6', 'ddb5539b-be12-4d0c-a7ed-1a5f670b887a'),
+       ('7fad8ab1-1c66-498d-9d6c-b6a29d32b079', 'UU', 'PATCH', 'updateUser', 'Update user', '2022-06-23 08:50:16',
+        '2022-06-23 08:50:16', '47ed7c0d-b835-4b26-938c-794ff764313c', 'ddb5539b-be12-4d0c-a7ed-1a5f670b887a'),
+       ('87376799-9903-4ea0-b658-3873c56d7df8', 'DO', 'DELETE', 'deleteOrder', 'Delete order for client',
+        '2022-06-23 08:50:16', '2022-06-23 08:50:16', 'b319fc5a-0b05-4e77-8980-07693a8ba7b6',
+        'eed74c5c-ab5f-4bca-834f-b9abb29fcd22'),
+       ('8b5354d9-243d-492c-a2aa-2397698e4657', 'GRS', 'GET', 'getRestaurants', 'Get restaurants for deliverer',
+        '2022-06-23 08:50:16', '2022-06-23 08:50:16', 'ef31c95f-1b96-446e-9a8a-387dc92c1094',
+        '82546b89-be40-435e-a7e2-e833dcb734f6'),
+       ('a0744e7b-4ff7-462a-9d34-55259ee8b10b', 'CO', 'POST', 'createOrder', 'Create order for client',
+        '2022-06-23 08:50:16', '2022-06-23 08:50:16', 'b319fc5a-0b05-4e77-8980-07693a8ba7b6',
+        'eed74c5c-ab5f-4bca-834f-b9abb29fcd22'),
+       ('a0da08cc-090a-491b-bcf6-9deb28d840d0', 'DU', 'DELETE', 'deleteUser', 'Delete user', '2022-06-23 08:50:16',
+        '2022-06-23 08:50:16', '66869ff0-f4e1-4c24-8718-fd9665ea996a', 'ddb5539b-be12-4d0c-a7ed-1a5f670b887a'),
+       ('ab5948fa-dac2-481d-bdb7-027a5bbc498c', 'GR', 'GET', 'getRestaurant', 'Get a restaurant for deliverer',
+        '2022-06-23 08:50:16', '2022-06-23 08:50:16', 'ef31c95f-1b96-446e-9a8a-387dc92c1094',
+        '82546b89-be40-435e-a7e2-e833dcb734f6'),
+       ('afb0f591-8499-4174-85f3-1d4127f6dd4f', 'DD', 'DELETE', 'deleteDeliverer', 'Delete deliverer',
+        '2022-06-23 08:50:16', '2022-06-23 08:50:16', 'ef31c95f-1b96-446e-9a8a-387dc92c1094',
+        '63f229e2-8342-4e27-b12d-565738628402'),
+       ('b01f2802-b7ec-4e11-98a8-77db45953600', 'DU', 'DELETE', 'deleteUser', 'Delete user', '2022-06-23 08:50:16',
+        '2022-06-23 08:50:16', 'b319fc5a-0b05-4e77-8980-07693a8ba7b6', 'ddb5539b-be12-4d0c-a7ed-1a5f670b887a'),
+       ('baf37110-f2f6-4bf2-8771-d732734328cc', 'DU', 'DELETE', 'deleteUser', 'Delete user', '2022-06-23 08:50:16',
+        '2022-06-23 08:50:16', '3fb72eec-3307-4a72-9f28-36b2de52a86e', 'ddb5539b-be12-4d0c-a7ed-1a5f670b887a'),
+       ('be071d06-1e5a-4bf3-a715-19de2cdc109f', 'GRS', 'GET', 'getRestaurants', 'Get restaurants for technical service',
+        '2022-06-23 08:50:16', '2022-06-23 08:50:16', '3fb72eec-3307-4a72-9f28-36b2de52a86e',
+        '82546b89-be40-435e-a7e2-e833dcb734f6'),
+       ('c138d8e5-4e8f-4fa6-ab6e-ae1cad4984b0', 'DI', 'DELETE', 'deleteItem', 'Delete item', '2022-06-23 08:50:16',
+        '2022-06-23 08:50:16', '47ed7c0d-b835-4b26-938c-794ff764313c', '82546b89-be40-435e-a7e2-e833dcb734f6'),
+       ('c603bb70-ecb1-4814-85d7-b92c49d79b75', 'GR', 'GET', 'getRestaurant', 'Get a restaurant for technical service',
+        '2022-06-23 08:50:16', '2022-06-23 08:50:16', '3fb72eec-3307-4a72-9f28-36b2de52a86e',
+        '82546b89-be40-435e-a7e2-e833dcb734f6'),
+       ('ca7c173e-9c54-43e9-b9b8-61204e455aa4', 'UU', 'PATCH', 'updateUser', 'Update user', '2022-06-23 08:50:16',
+        '2022-06-23 08:50:16', 'ef31c95f-1b96-446e-9a8a-387dc92c1094', 'ddb5539b-be12-4d0c-a7ed-1a5f670b887a'),
+       ('dd63124f-0e8a-49a7-9e42-8198d6317f64', 'CI', 'POST', 'createItem', 'Create item', '2022-06-23 08:50:16',
+        '2022-06-23 08:50:16', '47ed7c0d-b835-4b26-938c-794ff764313c', '82546b89-be40-435e-a7e2-e833dcb734f6'),
+       ('e29c3228-613d-45d7-8aa8-5a91c4835895', 'GR', 'GET', 'getRestaurant', 'Get a restaurant for client',
+        '2022-06-23 08:50:16', '2022-06-23 08:50:16', 'b319fc5a-0b05-4e77-8980-07693a8ba7b6',
+        '82546b89-be40-435e-a7e2-e833dcb734f6'),
+       ('edce8554-56a7-454e-8fc0-7fe9a27fcc59', 'GO', 'GET', 'getOrder', 'Get order for client', '2022-06-23 08:50:16',
+        '2022-06-23 08:50:16', 'b319fc5a-0b05-4e77-8980-07693a8ba7b6', 'eed74c5c-ab5f-4bca-834f-b9abb29fcd22'),
+       ('ee1096d8-ca84-419c-b766-a100fa523980', 'DU', 'DELETE', 'deleteUser', 'Delete user', '2022-06-23 08:50:16',
+        '2022-06-23 08:50:16', 'ef31c95f-1b96-446e-9a8a-387dc92c1094', 'ddb5539b-be12-4d0c-a7ed-1a5f670b887a'),
+       ('ee7fc0f7-9068-4ac0-a74b-fac3e5e906a8', 'DR', 'DELETE', 'deleteRestaurant', 'Delete restaurant',
+        '2022-06-23 08:50:16', '2022-06-23 08:50:16', '47ed7c0d-b835-4b26-938c-794ff764313c',
+        '82546b89-be40-435e-a7e2-e833dcb734f6'),
+       ('f0f28a44-3bf3-40bb-888d-4187b5d5e07e', 'UO', 'PATCH', 'updateOrder', 'Update order for client',
+        '2022-06-23 08:50:16', '2022-06-23 08:50:16', 'b319fc5a-0b05-4e77-8980-07693a8ba7b6',
+        'eed74c5c-ab5f-4bca-834f-b9abb29fcd22'),
+       ('f65c273d-aece-4f9f-96d3-ae34a693adad', 'GO', 'GET', 'getOrder', 'Get order for deliverer',
+        '2022-06-23 08:50:16', '2022-06-23 08:50:16', 'ef31c95f-1b96-446e-9a8a-387dc92c1094',
+        'eed74c5c-ab5f-4bca-834f-b9abb29fcd22'),
+       ('faa1ea88-cf5b-46d4-9ffa-c12524f521ce', 'DU', 'DELETE', 'deleteUser', 'Delete user', '2022-06-23 08:50:16',
+        '2022-06-23 08:50:16', 'f10763f0-ee18-4352-b855-63a3ca330d70', 'ddb5539b-be12-4d0c-a7ed-1a5f670b887a');
 
 -- --------------------------------------------------------
 
@@ -143,42 +223,52 @@ INSERT INTO `Transactions` (`id`, `code`, `method`, `name`, `desc`, `createdAt`,
 -- Table structure for table `Users`
 --
 
-CREATE TABLE `Users` (
-  `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `firstName` varchar(255) NOT NULL,
-  `lastName` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `address` varchar(255) NOT NULL,
-  `phone` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `accessToken` varchar(255) NOT NULL,
-  `refreshToken` varchar(255) NOT NULL,
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL,
-  `roleId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `Users`
+(
+    `id`           char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+    `firstName`    varchar(255)                                       NOT NULL,
+    `lastName`     varchar(255)                                       NOT NULL,
+    `email`        varchar(255)                                       NOT NULL,
+    `address`      varchar(255)                                       NOT NULL,
+    `phone`        varchar(255)                                       NOT NULL,
+    `password`     varchar(255)                                       NOT NULL,
+    `accessToken`  varchar(255)                                       NOT NULL,
+    `refreshToken` varchar(255)                                       NOT NULL,
+    `createdAt`    datetime                                           NOT NULL,
+    `updatedAt`    datetime                                           NOT NULL,
+    `roleId`       char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4;
 
 --
 -- Dumping data for table `Users`
 --
 
-INSERT INTO `Users` (`id`, `firstName`, `lastName`, `email`, `address`, `phone`, `password`, `accessToken`, `refreshToken`, `createdAt`, `updatedAt`, `roleId`) VALUES
-('0b5cea8a-09d4-43bf-ad0d-fe9b93b764d9', 'Bastien', 'Reynaud', 'bastien.reynaud@admin.com', '123 soleil', '+33606060606', '$2b$10$K0gC50byBdxesM0jh7Uzqu09DD9yygX7Q7oNi3ZjqKcnKPt8oc4S2', 'noToken', 'noToken', '2022-06-22 15:13:23', '2022-06-22 15:13:23', '14ffee91-edd3-485e-9ca8-4cf82b6f1dfb'),
-('7bd9a16a-ee55-44c4-b998-5cbcb55ec4c0', 'Hugo', 'Nahmias', 'hugo.nahmias@admin.com', '123 soleil', '+33606060606', '$2b$10$jQCQ/Mkbr1aQppRp7tEBCeCzS9lEku1ZiKhE2FgoKeFeDVN6KBEQ6', 'noToken', 'noToken', '2022-06-22 15:13:23', '2022-06-22 15:13:23', '14ffee91-edd3-485e-9ca8-4cf82b6f1dfb'),
-('7e434587-928b-4712-8640-7ee1c9b973bc', 'Stanislas', 'Foillard', 'stanislas.foillard@admin.com', '123 soleil', '+33606060606', '$2b$10$wjqOG/9Rg9c49.8bMWOdeeq/Dh36Tu2pA7W0hHs2pYCJckEYoz2A.', 'noToken', 'noToken', '2022-06-22 15:13:23', '2022-06-22 15:13:23', '14ffee91-edd3-485e-9ca8-4cf82b6f1dfb');
+INSERT INTO `Users` (`id`, `firstName`, `lastName`, `email`, `address`, `phone`, `password`, `accessToken`,
+                     `refreshToken`, `createdAt`, `updatedAt`, `roleId`)
+VALUES ('691e33d1-62c5-424e-9339-a766a35871fc', 'Stanislas', 'Foillard', 'stanislas.foillard@admin.com', '123 soleil',
+        '+33606060606', '$2b$10$tNRSeAD/E.EmGzZfXUK0o.Z3GiJA6fM/h1nTSQyMIDT6g/o5ko55q', 'noToken', 'noToken',
+        '2022-06-23 08:50:17', '2022-06-23 08:50:17', '3fb72eec-3307-4a72-9f28-36b2de52a86e'),
+       ('7b731286-138a-4240-a4f9-0438a6ddaf59', 'Bastien', 'Reynaud', 'bastien.reynaud@admin.com', '123 soleil',
+        '+33606060606', '$2b$10$fWG8PgzX4xBYnTsLKxQv5ejSOgdIkqlrQ1anPMclznQuGpUufEfOC', 'noToken', 'noToken',
+        '2022-06-23 08:50:17', '2022-06-23 08:50:17', '3fb72eec-3307-4a72-9f28-36b2de52a86e'),
+       ('a998b86a-1436-4987-9560-ed5c15589bdf', 'Hugo', 'Nahmias', 'hugo.nahmias@admin.com', '123 soleil',
+        '+33606060606', '$2b$10$fyIh9FQYrNVj9dGDE8KbtO9tQQ7dYf6LJKFGhUL24KiHi/F.nH6ke', 'noToken', 'noToken',
+        '2022-06-23 08:50:17', '2022-06-23 08:50:17', '3fb72eec-3307-4a72-9f28-36b2de52a86e');
 
 --
 -- Table structure for table `TransactionTokens`
 --
 
 CREATE TABLE `TransactionTokens` (
-  `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `token` varchar(255) NOT NULL,
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL,
-  `userId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
-  `transactionId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL
+                                     `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+                                     `token` varchar(255) NOT NULL,
+                                     `createdAt` datetime NOT NULL,
+                                     `updatedAt` datetime NOT NULL,
+                                     `userId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+                                     `transactionId` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 
 --
 -- Indexes for dumped tables
@@ -188,42 +278,43 @@ CREATE TABLE `TransactionTokens` (
 -- Indexes for table `Roles`
 --
 ALTER TABLE `Roles`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id` (`id`);
+    ADD PRIMARY KEY (`id`),
+    ADD UNIQUE KEY `id` (`id`);
 
 --
 -- Indexes for table `Services`
 --
 ALTER TABLE `Services`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id` (`id`);
+    ADD PRIMARY KEY (`id`),
+    ADD UNIQUE KEY `id` (`id`);
 
 --
 -- Indexes for table `Transactions`
 --
 ALTER TABLE `Transactions`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id` (`id`),
-  ADD KEY `roleId` (`roleId`),
-  ADD KEY `serviceId` (`serviceId`);
+    ADD PRIMARY KEY (`id`),
+    ADD UNIQUE KEY `id` (`id`),
+    ADD KEY `roleId` (`roleId`),
+    ADD KEY `serviceId` (`serviceId`);
 
 --
 -- Indexes for table `Users`
 --
 ALTER TABLE `Users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id` (`id`),
-  ADD UNIQUE KEY `email` (`email`),
-  ADD KEY `roleId` (`roleId`);
+    ADD PRIMARY KEY (`id`),
+    ADD UNIQUE KEY `id` (`id`),
+    ADD UNIQUE KEY `email` (`email`),
+    ADD KEY `roleId` (`roleId`);
 
 --
 -- Indexes for table `TransactionTokens`
 --
 ALTER TABLE `TransactionTokens`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id` (`id`),
-  ADD KEY `userId` (`userId`),
-  ADD KEY `transactionId` (`transactionId`);
+    ADD PRIMARY KEY (`id`),
+    ADD UNIQUE KEY `id` (`id`),
+    ADD KEY `userId` (`userId`),
+    ADD KEY `transactionId` (`transactionId`);
+
 
 --
 -- Constraints for dumped tables
@@ -233,24 +324,24 @@ ALTER TABLE `TransactionTokens`
 -- Constraints for table `Transactions`
 --
 ALTER TABLE `Transactions`
-  ADD CONSTRAINT `Transactions_ibfk_1` FOREIGN KEY (`roleId`) REFERENCES `Roles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `Transactions_ibfk_2` FOREIGN KEY (`serviceId`) REFERENCES `Services` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+    ADD CONSTRAINT `Transactions_ibfk_1` FOREIGN KEY (`roleId`) REFERENCES `Roles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+    ADD CONSTRAINT `Transactions_ibfk_2` FOREIGN KEY (`serviceId`) REFERENCES `Services` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `Users`
 --
 ALTER TABLE `Users`
-  ADD CONSTRAINT `Users_ibfk_1` FOREIGN KEY (`roleId`) REFERENCES `Roles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+    ADD CONSTRAINT `Users_ibfk_1` FOREIGN KEY (`roleId`) REFERENCES `Roles` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 COMMIT;
 
 --
 -- Constraints for table `TransactionTokens`
 --
 ALTER TABLE `TransactionTokens`
-  ADD CONSTRAINT `TransactionTokens_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `Users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `TransactionTokens_ibfk_2` FOREIGN KEY (`transactionId`) REFERENCES `Transactions` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+    ADD CONSTRAINT `TransactionTokens_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `Users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+    ADD CONSTRAINT `TransactionTokens_ibfk_2` FOREIGN KEY (`transactionId`) REFERENCES `Transactions` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40101 SET CHARACTER_SET_CLIENT = @OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS = @OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION = @OLD_COLLATION_CONNECTION */;
