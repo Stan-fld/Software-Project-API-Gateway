@@ -13,13 +13,17 @@ services:
   auth1:
     container_name: auth1
     build: ../auth
-    ports:
-      - "4900:8000"
+  auth2:
+    container_name: auth2
+    build: ../auth
   nginx:
     container_name: nginx
     build: .
     ports:
-      - "8080:80"
+      - target: 80
+        published: 8080
+        protocol: tcp
+        mode: host
     depends_on:
       - gw1
       - gw2
