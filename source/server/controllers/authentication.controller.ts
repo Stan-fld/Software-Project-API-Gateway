@@ -21,7 +21,7 @@ export class AuthenticationController {
                 return {data: 'Internal server error', code: 500};
             }
 
-            logger.warn(e.response.data);
+            logger.warn(e.response.data[0].name + ': ' + e.response.data[0].message);
             return {data: e.response.data, code: e.response.status};
         }
     }
@@ -42,7 +42,7 @@ export class AuthenticationController {
                 logger.error('Axios error');
                 return {data: 'Internal server error', code: 500};
             }
-            logger.warn(e.response.data);
+            logger.warn(e.response.data[0].name + ': ' + e.response.data[0].message);
             return {data: e.response.data, code: e.response.status};
         }
     }
