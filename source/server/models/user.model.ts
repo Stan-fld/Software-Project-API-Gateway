@@ -7,7 +7,6 @@ export class User {
     email: string;
     address: string;
     phone: string;
-    roleId: string;
     role: Role;
     accessToken: string;
 
@@ -19,7 +18,6 @@ export class User {
         user.email = json.email;
         user.address = json.address;
         user.phone = json.phone;
-        user.roleId = json.roleId;
         user.role = Role.generateModel(json.role);
         user.accessToken = json.accessToken;
 

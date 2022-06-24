@@ -70,7 +70,7 @@ export class TransactionController {
                 return {data: 'Internal server error', code: 500};
             }
 
-            logger.warn(e.response.data);
+            logger.warn(`Transaction ${this.transaction.desc}: ${e.response.data}`);
             return {data: e.response.data, code: e.response.status};
         }
     }

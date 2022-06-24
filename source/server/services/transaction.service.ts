@@ -13,7 +13,7 @@ export class TransactionService extends HttpService {
 
     constructor(transaction: Transaction, transactionToken: TransactionToken, body?: any) {
         super(transactionToken.token);
-        this.url = `${transaction.service.domain} / ${transaction.name}`;
+        this.url = `${transaction.service.domain}/${transaction.name}`;
         this.transaction = transaction;
         this.body = body || null;
     }
