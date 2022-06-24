@@ -34,7 +34,7 @@ export class AuthenticationController {
         try {
             const response = await new AuthenticationService().loginUser(body.email, body.password);
             const user = User.generateModel(response.data.user);
-            logger.info('User created successfully');
+            logger.info('User logged successfully');
 
             return {data: user, code: 200};
         } catch (e) {
