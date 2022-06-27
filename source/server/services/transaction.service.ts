@@ -75,6 +75,10 @@ export class TransactionService extends HttpService {
      * Service function request with delete method
      */
     deleteWithTransactionToken(): Promise<any> {
-        return this.http.delete(this.url + '/' + this.body.id);
+        if (!this.body.id) {
+            return this.http.delete(this.url);
+        } else {
+            return this.http.delete(`${this.url}/${this.body.id}`);
+        }
     }
 }
