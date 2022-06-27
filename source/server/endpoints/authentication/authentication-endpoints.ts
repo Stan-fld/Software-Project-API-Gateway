@@ -33,4 +33,19 @@ export class AuthenticationEndpoints {
 
         });
     }
+
+    /**
+     * Endpoint to logout a user
+     * @param app
+     */
+    static signOut(app: Express) {
+
+        app.get('/user/logout', authenticateIp, async (req: any, res) => {
+
+            const response = await AuthenticationController.logoutUser(req.header('x-auth'));
+
+            res.status(response.code).send({data: response.data});
+
+        });
+    }
 }

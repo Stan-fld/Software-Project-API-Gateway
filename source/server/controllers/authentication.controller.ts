@@ -46,4 +46,24 @@ export class AuthenticationController {
             return {data: e.response.data, code: e.response.status};
         }
     }
+
+    /**
+     * Controller method to logout a user
+     * @param userToken
+     */
+    static async logoutUser(userToken: string) {
+        try {
+            const response = await new AuthenticationService(userToken).logoutUser();
+            logger.info('User logged out successfully');
+
+            return {data: response.data, code: 200};
+        } catch (e) {
+            if (!e.response) {
+                logger.error('Axios error');
+                return {data: 'Internal server error', code: 500};
+            }
+            logger.warn(e.response.data[0].name + ': ' + e.response.data[0].message);
+            return {data: e.response.data, code: e.response.status};
+        }
+    }
 }

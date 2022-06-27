@@ -212,7 +212,21 @@ VALUES ('00646365-48f6-4792-979d-6152a042f2e7', 'DU', 'DELETE', 'deleteUser', 'D
         NOW(), NOW(), 'ef31c95f-1b96-446e-9a8a-387dc92c1094',
         'eed74c5c-ab5f-4bca-834f-b9abb29fcd22'),
        ('faa1ea88-cf5b-46d4-9ffa-c12524f521ce', 'DU', 'DELETE', 'deleteUser', 'Delete user', NOW(), NOW(),
-        'f10763f0-ee18-4352-b855-63a3ca330d70', 'ddb5539b-be12-4d0c-a7ed-1a5f670b887a');
+        'f10763f0-ee18-4352-b855-63a3ca330d70', 'ddb5539b-be12-4d0c-a7ed-1a5f670b887a'),
+       ('d24f7117-c871-4082-bbfe-a5bc67c0cd0e', 'CUP', 'PATCH', 'changeUserPassword', 'Change user password', NOW(), NOW(),
+        'f10763f0-ee18-4352-b855-63a3ca330d70', 'ddb5539b-be12-4d0c-a7ed-1a5f670b887a'),
+       ('ea1e1dcc-88a8-4c7e-9056-4234296aee71', 'CUP', 'PATCH', 'changeUserPassword', 'Change user password', NOW(), NOW(),
+        'ef31c95f-1b96-446e-9a8a-387dc92c1094', 'ddb5539b-be12-4d0c-a7ed-1a5f670b887a'),
+       ('40360fcc-33ca-4d66-b9ad-2  dec4402b9bc', 'CUP', 'PATCH', 'changeUserPassword', 'Change user password', NOW(), NOW(),
+        'b319fc5a-0b05-4e77-8980-07693a8ba7b6', 'ddb5539b-be12-4d0c-a7ed-1a5f670b887a'),
+       ('1ff325cf-a3c0-44e2-92c4-3efe44e50ba7', 'CUP', 'PATCH', 'changeUserPassword', 'Change user password', NOW(), NOW(),
+        '3fb72eec-3307-4a72-9f28-36b2de52a86e', 'ddb5539b-be12-4d0c-a7ed-1a5f670b887a'),
+       ('8415c445-bf9a-46dd-86c4-9284a59b657b', 'CUP', 'PATCH', 'changeUserPassword', 'Change user password', NOW(), NOW(),
+        '66869ff0-f4e1-4c24-8718-fd9665ea996a', 'ddb5539b-be12-4d0c-a7ed-1a5f670b887a'),
+       ('1e3faee0-beca-4cd1-b888-579f3d7115f5', 'CUP', 'PATCH', 'changeUserPassword', 'Change user password', NOW(), NOW(),
+        '7f1ecd88-a6af-441d-a5e0-a995fea51b3e', 'ddb5539b-be12-4d0c-a7ed-1a5f670b887a'),
+       ('8aacb565-d858-4942-b74a-39f0877149c6', 'CUP', 'PATCH', 'changeUserPassword', 'Change user password', NOW(), NOW(),
+        '47ed7c0d-b835-4b26-938c-794ff764313c', 'ddb5539b-be12-4d0c-a7ed-1a5f670b887a');
 
 -- --------------------------------------------------------
 
@@ -229,8 +243,8 @@ CREATE TABLE `Users`
     `address`      varchar(255)                                       NOT NULL,
     `phone`        varchar(255)                                       NOT NULL,
     `password`     varchar(255)                                       NOT NULL,
-    `accessToken`  varchar(255)                                       NOT NULL,
-    `refreshToken` varchar(255)                                       NOT NULL,
+    `accessToken`  varchar(255)                                       DEFAULT NULL,
+    `refreshToken` varchar(255)                                       DEFAULT NULL,
     `createdAt`    datetime                                           NOT NULL,
     `updatedAt`    datetime                                           NOT NULL,
     `roleId`       char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL

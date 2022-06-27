@@ -26,6 +26,7 @@ app.use(morgan(
 
 AuthenticationEndpoints.signUp(app);
 AuthenticationEndpoints.signIn(app);
+AuthenticationEndpoints.signOut(app);
 
 TransactionEndpoints.transaction(app);
 

@@ -15,7 +15,7 @@ export class TransactionEndpoints {
 
             const response = await TransactionController.redirectTransaction(transactionCode, req.header('x-auth'), req.body);
 
-            res.status(response.code).send({data:response.data});
+            res.status(response.code).send({data: response.data});
 
         });
     }
