@@ -37,8 +37,8 @@ app.use(function (req, res) {
         message: 'Route ' + req.originalUrl + ' with: ' + req.method + ' does not exist.',
         code: 404
     }];
-    logger.warn(error);
-    res.status(404).send({error});
+    logger.warn(error[0]);
+    res.status(404).send({data: error});
 });
 
 if (env !== "test") {
