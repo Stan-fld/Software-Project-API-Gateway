@@ -11,7 +11,7 @@ const env = process.env.NODE_ENV;
 const app: Express = express();
 
 app.use(cors);
-app.use(express.json());
+app.use(express.json({limit:'2mb'}));
 app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(morgan(
         ':remote-addr - [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] - :response-time ms',
