@@ -20,8 +20,14 @@ services:
     container_name: user1
     build: ../user
   user2:
-      container_name: user2
-      build: ../user
+    container_name: user2
+    build: ../user
+  restaurant1:
+    container_name: restaurant1
+    build: ../restaurant
+  restaurant2:
+    container_name: restaurant2
+    build: ../restaurant
   nginx:
     container_name: nginx
     build: .
@@ -37,3 +43,5 @@ services:
       - auth2
       - user1
       - user2
+      - restaurant1
+      - restaurant2
