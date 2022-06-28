@@ -47,7 +47,7 @@ export class TransactionService extends HttpService {
      * Service function request with get method
      */
     getWithTransactionToken(): Promise<any> {
-        return this.http.get(this.url);
+        return !this.body.id ? this.http.get(this.url) : this.http.get(`${this.url}/${this.body.id}`);
     }
 
     /**
