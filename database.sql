@@ -238,7 +238,13 @@ VALUES ('00646365-48f6-4792-979d-6152a042f2e7', 'DU', 'DELETE', 'deleteUser', 'D
         '7f1ecd88-a6af-441d-a5e0-a995fea51b3e', 'ddb5539b-be12-4d0c-a7ed-1a5f670b887a'),
        ('8aacb565-d858-4942-b74a-39f0877149c6', 'CUP', 'PATCH', 'changeUserPassword', 'Change user password', NOW(),
         NOW(),
-        '47ed7c0d-b835-4b26-938c-794ff764313c', 'ddb5539b-be12-4d0c-a7ed-1a5f670b887a');
+        '47ed7c0d-b835-4b26-938c-794ff764313c', 'ddb5539b-be12-4d0c-a7ed-1a5f670b887a'),
+       ('542daabe-1a64-4569-ac8a-6e0d743f1e31', 'CUR', 'PATCH', 'changeUserRole', 'Change user role', NOW(),
+        NOW(), '3fb72eec-3307-4a72-9f28-36b2de52a86e', 'ddb5539b-be12-4d0c-a7ed-1a5f670b887a'),
+       ('1237fa98-8f50-4d81-a9c8-ee785e8ead24', 'OR', 'PATCH', 'openRestaurant', 'Open user restaurant', NOW(),
+        NOW(), '3fb72eec-3307-4a72-9f28-36b2de52a86e', '82546b89-be40-435e-a7e2-e833dcb734f6'),
+       ('32384488-66b6-4c8d-8138-6764ece91349', 'AD', 'PATCH', 'allowDeliverer', 'Allow user deliverer', NOW(),
+        NOW(), '3fb72eec-3307-4a72-9f28-36b2de52a86e', '63f229e2-8342-4e27-b12d-565738628402');
 
 -- --------------------------------------------------------
 
@@ -286,7 +292,10 @@ VALUES ('691e33d1-62c5-424e-9339-a766a35871fc', 'Stanislas', 'Foillard', 'stanis
         NOW(), NOW(), '3fb72eec-3307-4a72-9f28-36b2de52a86e'),
        ('3088cfc1-e602-43e7-8162-2b2397422c97', 'Hugo', 'Nahmias', 'hugo.nahmias@client.com', '123 soleil',
         '+33606060606', '$2b$10$fyIh9FQYrNVj9dGDE8KbtO9tQQ7dYf6LJKFGhUL24KiHi/F.nH6ke', 'noToken', 'noToken',
-        NOW(), NOW(), 'b319fc5a-0b05-4e77-8980-07693a8ba7b6');
+        NOW(), NOW(), 'b319fc5a-0b05-4e77-8980-07693a8ba7b6'),
+       ('b44b4091-e159-424d-8bb8-da9bdbcec0d9', 'Hugo', 'Nahmias', 'hugo.nahmias@restau.com', '123 soleil',
+        '+33606060606', '$2b$10$fyIh9FQYrNVj9dGDE8KbtO9tQQ7dYf6LJKFGhUL24KiHi/F.nH6ke', 'noToken', 'noToken',
+        NOW(), NOW(), '47ed7c0d-b835-4b26-938c-794ff764313c');
 
 --
 -- Table structure for table `TransactionTokens`

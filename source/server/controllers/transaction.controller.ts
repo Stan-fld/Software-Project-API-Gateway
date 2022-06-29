@@ -7,10 +7,6 @@ import logger from "../../middleware/logger";
 
 export class TransactionController {
 
-    private static transaction: Transaction;
-    private static transactionToken: TransactionToken;
-    private static transactionTokenService: TransactionTokenService;
-
     /**
      * Controller to redirect transaction request
      * @param transactionCode
@@ -19,26 +15,26 @@ export class TransactionController {
      */
     static async redirectTransaction(transactionCode: string, userToken: string, body?: any) {
         try {
-            this.transactionTokenService = new TransactionTokenService(userToken);
-            const response = await this.transactionTokenService.createTransactionToken(transactionCode);
+            const transactionTokenService: TransactionTokenService = new TransactionTokenService(userToken);
+            const response = await transactionTokenService.createTransactionToken(transactionCode);
 
-            this.transaction = Transaction.generateModel(response.data.transaction);
-            this.transactionToken = TransactionToken.generateModel(response.data.transactionToken);
+            const transaction: Transaction = Transaction.generateModel(response.data.transaction);
+            const transactionToken: TransactionToken = TransactionToken.generateModel(response.data.transactionToken);
 
-            if (!this.transaction) {
+            if (!transaction) {
                 let error = createError('CouldNotFindTransaction', 'Could not find transaction for given code', 404)
 
                 logger.warn(error);
                 return error;
             }
-            if (!this.transactionToken) {
+            if (!transactionToken) {
                 let error = createError('CouldNotCreateTransactionToken', 'Could not create transaction token for given transaction', 404);
 
                 logger.warn(error);
                 return error;
             }
 
-            return await this.requestWithReqCat(body);
+            return await this.requestWithReqCat(transaction, transactionToken, transactionTokenService, body);
         } catch (e) {
             if (!e.response) {
                 logger.error('Axios error');
@@ -52,25 +48,27 @@ export class TransactionController {
 
     /**
      * Controller to execute request with transaction code
+     * @param transaction
+     * @param transactionToken
+     * @param transactionTokenService
      * @param body
      * @private
      */
-    private static async requestWithReqCat(body?: any) {
+    private static async requestWithReqCat(transaction: Transaction, transactionToken: TransactionToken, transactionTokenService: TransactionTokenService, body?: any) {
         try {
-            const response = await new TransactionService(this.transaction, this.transactionToken, body).redirectionWithTransactionToken();
-            await this.transactionTokenService.deleteTransactionToken(this.transactionToken.token);
+            const response = await new TransactionService(transaction, transactionToken, body).redirectionWithTransactionToken();
+            await transactionTokenService.deleteTransactionToken(transactionToken.token);
 
-            logger.info(`Transaction ${this.transaction.desc} executed successfully`);
+            logger.info(`Transaction ${transaction.desc} executed successfully`);
             return {data: response.data, code: response.status};
         } catch (e) {
-            await this.transactionTokenService.deleteTransactionToken(this.transactionToken.token);
-
+            await transactionTokenService.deleteTransactionToken(transactionToken.token);
             if (!e.response) {
                 logger.error('Axios error');
                 return {data: 'Internal server error', code: 500};
             }
 
-            logger.warn(`Transaction ${this.transaction.desc} - ${e.response.data[0].name}: ${e.response.data[0].message}`);
+            logger.warn(`Transaction ${transaction.desc} - ${e.response.data[0].name}: ${e.response.data[0].message}`);
             return {data: e.response.data, code: e.response.status};
         }
     }
