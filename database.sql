@@ -244,7 +244,21 @@ VALUES ('00646365-48f6-4792-979d-6152a042f2e7', 'DU', 'DELETE', 'deleteUser', 'D
        ('1237fa98-8f50-4d81-a9c8-ee785e8ead24', 'OR', 'PATCH', 'openRestaurant', 'Open user restaurant', NOW(),
         NOW(), '3fb72eec-3307-4a72-9f28-36b2de52a86e', '82546b89-be40-435e-a7e2-e833dcb734f6'),
        ('32384488-66b6-4c8d-8138-6764ece91349', 'AD', 'PATCH', 'allowDeliverer', 'Allow user deliverer', NOW(),
-        NOW(), '3fb72eec-3307-4a72-9f28-36b2de52a86e', '63f229e2-8342-4e27-b12d-565738628402');
+        NOW(), '3fb72eec-3307-4a72-9f28-36b2de52a86e', '63f229e2-8342-4e27-b12d-565738628402'),
+       ('8b01de53-39d3-4420-bf16-5b415cdb9cc9', 'GRC', 'GET', 'getRestaurantCategories', 'Get restaurant categories for technical services', NOW(),
+        NOW(), '3fb72eec-3307-4a72-9f28-36b2de52a86e', '82546b89-be40-435e-a7e2-e833dcb734f6'),
+       ('2c9c48b5-6ff3-4a4c-9235-3087ba08ce8c', 'GRC', 'GET', 'getRestaurantCategories', 'Get restaurant categories for restaurant', NOW(),
+        NOW(), '47ed7c0d-b835-4b26-938c-794ff764313c', '82546b89-be40-435e-a7e2-e833dcb734f6'),
+       ('994c3201-b8c1-4114-83b3-11eed3391e8a', 'GRC', 'GET', 'getRestaurantCategories', 'Get restaurant categories for external developer', NOW(),
+        NOW(), '66869ff0-f4e1-4c24-8718-fd9665ea996a', '82546b89-be40-435e-a7e2-e833dcb734f6'),
+       ('541b44c2-5da4-485f-b115-71f35d0deff5', 'GRC', 'GET', 'getRestaurantCategories', 'Get restaurant categories for API user', NOW(),
+        NOW(), '7f1ecd88-a6af-441d-a5e0-a995fea51b3e', '82546b89-be40-435e-a7e2-e833dcb734f6'),
+       ('627e8fc8-36ea-46bf-b9d2-dd640e1b0ead', 'GRC', 'GET', 'getRestaurantCategories', 'Get restaurant categories for client', NOW(),
+        NOW(), 'b319fc5a-0b05-4e77-8980-07693a8ba7b6', '82546b89-be40-435e-a7e2-e833dcb734f6'),
+       ('818d2c9d-2b96-4366-b9fc-01ef34270a9f', 'GRC', 'GET', 'getRestaurantCategories', 'Get restaurant categories for deliverer', NOW(),
+        NOW(), 'ef31c95f-1b96-446e-9a8a-387dc92c1094', '82546b89-be40-435e-a7e2-e833dcb734f6'),
+       ('6dcfd9dd-a863-4882-a78c-26669e7177f5', 'GRC', 'GET', 'getRestaurantCategories', 'Get restaurant categories for commercial services', NOW(),
+        NOW(), 'f10763f0-ee18-4352-b855-63a3ca330d70', '82546b89-be40-435e-a7e2-e833dcb734f6');
 
 -- --------------------------------------------------------
 
