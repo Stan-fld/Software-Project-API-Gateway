@@ -34,6 +34,12 @@ services:
   order2:
     container_name: order2
     build: ../order
+  deliverer1:
+    container_name: deliverer1
+    build: ../deliverer
+  deliverer2:
+    container_name: deliverer2
+    build: ../deliverer
   nginx:
     container_name: nginx
     build: .
@@ -53,3 +59,5 @@ services:
       - restaurant2
       - order1
       - order2
+      - deliverer1
+      - deliverer2
