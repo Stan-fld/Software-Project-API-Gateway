@@ -28,6 +28,12 @@ services:
   restaurant2:
     container_name: restaurant2
     build: ../restaurant
+  order1:
+    container_name: order1
+    build: ../order
+  order2:
+    container_name: order2
+    build: ../order
   nginx:
     container_name: nginx
     build: .
@@ -45,3 +51,5 @@ services:
       - user2
       - restaurant1
       - restaurant2
+      - order1
+      - order2
