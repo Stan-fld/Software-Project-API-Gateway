@@ -47,7 +47,7 @@ export class TransactionService extends HttpService {
      * Service function request with get method
      */
     getWithTransactionToken(): Promise<any> {
-        return !this.body.id ? this.http.get(this.url) : this.http.get(`${this.url}/${this.body.id}`);
+        return !this.body._id ? this.http.get(this.url) : this.http.get(`${this.url}/${this.body._id}`);
     }
 
     /**
@@ -75,6 +75,6 @@ export class TransactionService extends HttpService {
      * Service function request with delete method
      */
     deleteWithTransactionToken(): Promise<any> {
-        return !this.body.id ? this.http.delete(this.url) : this.http.delete(`${this.url}/${this.body.id}`);
+        return !this.body._id ? this.http.delete(this.url) : this.http.delete(`${this.url}/${this.body._id}`);
     }
 }
