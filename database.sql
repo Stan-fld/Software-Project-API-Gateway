@@ -210,6 +210,8 @@ VALUES ('00646365-48f6-4792-979d-6152a042f2e7', 'DU', 'DELETE', 'deleteUser', 'D
         '82546b89-be40-435e-a7e2-e833dcb734f6'),
        ('edce8554-56a7-454e-8fc0-7fe9a27fcc59', 'GOS', 'GET', 'client', 'Get orders for client', NOW(), NOW(),
         'b319fc5a-0b05-4e77-8980-07693a8ba7b6', 'eed74c5c-ab5f-4bca-834f-b9abb29fcd22'),
+       ('a1c020eb-d3c0-4ac3-ad03-03ad184d8386', 'GO', 'GET', 'client/order', 'Get order for client', NOW(), NOW(),
+        'b319fc5a-0b05-4e77-8980-07693a8ba7b6', 'eed74c5c-ab5f-4bca-834f-b9abb29fcd22'),
        ('ee1096d8-ca84-419c-b766-a100fa523980', 'DU', 'DELETE', 'deleteUser', 'Delete user', NOW(), NOW(),
         'ef31c95f-1b96-446e-9a8a-387dc92c1094', 'ddb5539b-be12-4d0c-a7ed-1a5f670b887a'),
        ('ee7fc0f7-9068-4ac0-a74b-fac3e5e906a8', 'DR', 'PATCH', 'closeMyRestaurant', 'Close user restaurant',
